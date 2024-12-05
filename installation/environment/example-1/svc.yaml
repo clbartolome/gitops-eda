@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello-openshift
+    environment: dev
+  name: hello-openshift
+  namespace: example-1
+spec:
+  ports:
+  - name: input
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: hello-openshift
+    deployment: hello-openshift
+    environment: dev
+  type: ClusterIP
