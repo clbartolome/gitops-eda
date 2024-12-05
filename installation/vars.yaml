@@ -1,0 +1,16 @@
+---
+# Required namespaces (operators namespaces must NOT be also included here)
+namespaces:
+  - name: example-1
+  - name: example-2
+
+repo_url: "https://github.com/clbartolome/gitops-eda.git"
+
+# Operators Role Configuration
+operators:
+  - name: openshift-gitops-operator
+    namespace: openshift-operators
+    channel: gitops-1.14
+    source: redhat-operators
+    sourcenamespace: openshift-marketplace
+    clusterwide: true

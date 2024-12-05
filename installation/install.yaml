@@ -1,0 +1,32 @@
+---
+- name: PoV Installation
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Setup kubeconfig file
+      include_role:
+        name: kubeconfig
+    
+    - name: Create Demo namespaces
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: project.openshift.io/v1
+          kind: Project
+          metadata:
+            name: "{{ namespace.name }}"
+      loop: "{{ namespaces }}"
+      loop_control:
+        loop_var: namespace
+
+    - name: Install required operators
+      include_role:
+        name: install-operators
+
+    - name: Configure ArgoCD
+      include_role:
+        name: config-argocd
+  
+  vars_files:
+    - vars.yaml

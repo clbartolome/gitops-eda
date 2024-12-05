@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-openshift
+    environment: dev
+  name: hello-openshift
+  namespace: example-1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-openshift
+      deployment: hello-openshift
+      environment: dev
+  template:
+    metadata:
+      labels:
+        app: hello-openshift
+        deployment: hello-openshift
+        environment: dev
+    spec:
+      containers:
+      - image: openshift/hello-openshift:latest
+        name: hello-openshift
+        ports:
+        - containerPort: 8080
+          protocol: TCP
