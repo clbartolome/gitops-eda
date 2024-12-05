@@ -1,0 +1,6 @@
+---
+
+- name: Start Gitea Deploy
+  ansible.builtin.debug:
+    msg:
+    - "Starting Gitea Deployment and Configuration"
