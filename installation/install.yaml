@@ -5,7 +5,7 @@
 
   tasks:
     - name: Setup kubeconfig file
-      include_role:
+      ansible.builtin.include_role:
         name: kubeconfig
        
     # - name: Create Demo namespaces
@@ -21,15 +21,15 @@
     #     loop_var: namespace
 
     - name: Setup Gitea
-      include_role:
+      ansible.builtin.include_role:
         name: gitea
 
     # - name: Install required operators
-    #   include_role:
+    #   ansible.builtin.include_role:
     #     name: install-operators
 
     # - name: Configure ArgoCD
-    #   include_role:
+    #   ansible.builtin.include_role:
     #     name: config-argocd
   
   vars_files:

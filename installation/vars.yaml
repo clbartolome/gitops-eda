@@ -14,3 +14,7 @@ operators:
     source: redhat-operators
     sourcenamespace: openshift-marketplace
     clusterwide: true
+
+# Gitea Role Configuration
+gitea:
+  namespace: gitea
