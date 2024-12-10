@@ -11,12 +11,8 @@ Repository for fully automated installation and configuration of the necessary e
 
 - Open a terminal
 - Login into OpenShift
-- Access installation->ansible-navigator: `cd installation/ansible-navigator`
 - Run installation:
 ```sh
-OPENSHIFT_TOKEN=$(oc whoami --show-token)
 CLUSTER_DOMAIN=$(oc whoami --show-server | sed 's~https://api\.~~' | sed 's~:.*~~')
-ansible-navigator run ../install.yaml -m stdout \
-    -e "ocp_host=$CLUSTER_DOMAIN" \
-    -e "api_token=$OPENSHIFT_TOKEN"
+ansible-playbook installation/install.yaml -e "ocp_host=$CLUSTER_DOMAIN"
 ```

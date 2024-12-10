@@ -3,11 +3,11 @@
   hosts: localhost
   gather_facts: false
 
-  tasks:
-    - name: Setup kubeconfig file
-      ansible.builtin.include_role:
-        name: kubeconfig
-       
+  tasks:      
+
+    - name: Install collections
+      ansible.builtin.command: ansible-galaxy collection install -r collections/requirements.yaml 
+
     # - name: Create Demo namespaces
     #   kubernetes.core.k8s:
     #     state: present
@@ -20,17 +20,17 @@
     #   loop_control:
     #     loop_var: namespace
 
-    - name: Setup Gitea
-      ansible.builtin.include_role:
-        name: gitea
+    # - name: Setup Gitea
+    #   ansible.builtin.include_role:
+    #     name: demos.utils.gitea
 
     # - name: Install required operators
     #   ansible.builtin.include_role:
-    #     name: install-operators
+    #     name: demos.utils.operator
 
-    # - name: Configure ArgoCD
-    #   ansible.builtin.include_role:
-    #     name: config-argocd
+    - name: Configure ArgoCD
+      ansible.builtin.include_role:
+        name: demos.utils.argocd
   
   vars_files:
     - vars.yaml

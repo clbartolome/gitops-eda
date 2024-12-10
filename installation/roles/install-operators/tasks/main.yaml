@@ -1,6 +1,0 @@
-- name: Install Operators
-  ansible.builtin.include_tasks:
-    file: operator.yaml
-  loop: "{{ operators }}"
-  loop_control:
-    loop_var: operator

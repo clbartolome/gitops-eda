@@ -1,0 +1,4 @@
+collections:
+  - name: https://github.com/clbartolome/demos.utils.git
+    type: git
+    version: main
