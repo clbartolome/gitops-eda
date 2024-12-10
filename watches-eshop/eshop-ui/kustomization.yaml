@@ -13,11 +13,6 @@ resources:
 - service.yaml
 - route.yaml
 
-configMapGenerator:
-- name: eshop-config
-  files:
-  - config.json
-
 images:
 - name: eshop-ui
   newName: quay.io/demo-applications/eshop-ui
