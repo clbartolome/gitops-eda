@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: watches-eshop-applications
+  namespace: openshift-gitops
+spec:
+  generators:
+    - list:
+      elements:
+        - app_name: catalog
+        - app_name: catalog-db
+        - app_name: eshop-ui
+        - app_name: gateway
+        - app_name: order
+        - app_name: order-db
+        - app_name: payment
+        - app_name: payment-db
+  template:
+    metadata:
+      name: '{{ app_name }}'
+    spec:
+      project: environment
+      source:
+        repoURL: http://gitea.gitea.svc.cluster.local:3000/gitea/watches-eshop
+        targetRevision: 'master'
+        path: '{{ app_name }}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: 'watches-eshop'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

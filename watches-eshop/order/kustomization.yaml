@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app: order
+  app.kubernetes.io/component: order
+  app.kubernetes.io/instance: order
+  app.kubernetes.io/part-of: watches-eshop
+  app.openshift.io/runtime: quarkus
+
+resources:
+- deployment.yaml
+- service.yaml
+
+configMapGenerator:
+- name: order-configuration
+  envs:
+  - properties.env
+
+secretGenerator:
+- name: order-secured-configuration
+  envs:
+  - secured.env
+
+images:
+- name: order
+  newName: quay.io/demo-applications/eshop-order
+  newTag: 1.0.0
