@@ -21,4 +21,4 @@ configMapGenerator:
 images:
 - name: gateway
   newName: quay.io/demo-applications/eshop-gateway
-  newTag: 1.0.0
+  newTag: 1.0.2
