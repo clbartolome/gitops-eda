@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: payment-thanos-metrics-reader
-  namespace: payments
+  namespace: payment
   annotations:
     argocd.argoproj.io/sync-wave: "3"
 rules:
