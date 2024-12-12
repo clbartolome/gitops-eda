@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: thanos-token
+  namespace: payment
+  annotations:
+    kubernetes.io/service-account.name: thanos 
+    argocd.argoproj.io/sync-wave: "3"
+type: kubernetes.io/service-account-token

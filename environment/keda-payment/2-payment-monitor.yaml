@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-payment-monitor
+  namespace: payment
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  endpoints:
+  - interval: 5s
+    port: 8080-tcp 
+    scheme: http
+  selector: 
+    matchLabels:
+      app: payment
