@@ -1,5 +1,5 @@
 ---
-- name: PoV Installation
+- name: Installation
   hosts: localhost
   gather_facts: false
 
@@ -26,7 +26,7 @@
 
     - name: Create thanos SA
       ansible.builtin.command:
-      cmd: oc create serviceaccount thanos -n payment
+        cmd: oc create serviceaccount thanos -n payment
 
     - name: Install required operators
       ansible.builtin.include_role:

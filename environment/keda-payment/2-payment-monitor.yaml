@@ -3,6 +3,8 @@ kind: ServiceMonitor
 metadata:
   name: prometheus-payment-monitor
   namespace: payment
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   endpoints:
   - interval: 5s

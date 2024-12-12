@@ -12,6 +12,9 @@ WORKDIR /
 
 COPY --from=builder /workspace/payment_microservice .
 
+COPY --from=builder /workspace/templates ./templates
+COPY --from=builder /workspace/static ./static
+
 USER 65532:65532
 
-ENTRYPOINT ["/payment_microservice"]
+ENTRYPOINT ["./payment_microservice"]
