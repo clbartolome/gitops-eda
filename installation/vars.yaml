@@ -1,7 +1,7 @@
 ---
 # Required namespaces (operators namespaces must NOT be also included here)
 namespaces:
-  - name: watches-eshop
+  - name: payment
 
 operators:
   - name: openshift-gitops-operator
@@ -10,21 +10,27 @@ operators:
     source: redhat-operators
     sourcenamespace: openshift-marketplace
     clusterwide: true
+  - name: openshift-custom-metrics-autoscaler-operator
+    namespace: openshift-keda
+    channel: stable
+    source: redhat-operators
+    sourcenamespace: openshift-marketplace
+    clusterwide: true
 
 gitea:
   namespace: gitea
   ocp_domain: "{{ ocp_host }}"
   repositories:
-    - name: watches-eshop
+    - name: payment-deploy
       url: https://github.com/clbartolome/gitops-eda.git
       branch: feature/eshop-deploy
-      path: "/watches-eshop"
+      path: "/payment-deploy"
   users: []
 
 argo:
   ocp_domain: "{{ ocp_host }}"
   target_namespaces: # Namespaces where ArgoCD will create resources
-    - name: watches-eshop
+    - name: payment
   environment_repo_url: https://github.com/clbartolome/gitops-eda.git
   environment_repo_revision: feature/eshop-deploy
   environment_path: environment/* # Will create an app for each directory in this path

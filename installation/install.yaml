@@ -8,29 +8,56 @@
     - name: Install collections
       ansible.builtin.command: ansible-galaxy collection install -r collections/requirements.yaml 
 
-    # - name: Create Demo namespaces
-    #   kubernetes.core.k8s:
-    #     state: present
-    #     definition:
-    #       apiVersion: project.openshift.io/v1
-    #       kind: Project
-    #       metadata:
-    #         name: "{{ namespace.name }}"
-    #   loop: "{{ namespaces }}"
-    #   loop_control:
-    #     loop_var: namespace
+    - name: Create Demo namespaces
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: project.openshift.io/v1
+          kind: Project
+          metadata:
+            name: "{{ namespace.name }}"
+      loop: "{{ namespaces }}"
+      loop_control:
+        loop_var: namespace
 
-    # - name: Setup Gitea
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.gitea
+    - name: Setup Gitea
+      ansible.builtin.include_role:
+        name: demos.utils.gitea
 
-    # - name: Install required operators
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.operator
+    - name: Create thanos SA
+      ansible.builtin.command:
+      cmd: oc create serviceaccount thanos -n payment
+
+    - name: Install required operators
+      ansible.builtin.include_role:
+        name: demos.utils.operator
 
     - name: Configure ArgoCD
       ansible.builtin.include_role:
         name: demos.utils.argocd
-  
+
+    - name: Create ArgoCD environment applications
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: argoproj.io/v1alpha1
+          kind: Application
+          metadata:
+            name: payment
+            namespace: openshift-gitops
+          spec:
+            project: default
+            source:
+              repoURL: http://gitea.gitea.svc.cluster.local:3000/gitea/payment-deploy
+              targetRevision: master
+              path: .
+            destination:
+              server: https://kubernetes.default.svc
+              namespace: payment
+            syncPolicy:
+              automated:
+                prune: true
+                selfHeal: true  
+
   vars_files:
     - vars.yaml
