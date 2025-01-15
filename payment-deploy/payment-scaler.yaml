@@ -5,8 +5,6 @@ metadata:
     scaledobject.keda.sh/name: keda-scaled
   name: payment-scaler
   namespace: payment
-  annotations:
-    argocd.argoproj.io/sync-wave: "6"
 spec:
   maxReplicaCount: 10
   minReplicaCount: 1

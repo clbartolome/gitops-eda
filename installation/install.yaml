@@ -36,6 +36,10 @@
       ansible.builtin.include_role:
         name: demos.utils.argocd
 
+    - name: Configure AAP
+      ansible.builtin.include_role:
+        name: demos.utils.aap_ocp    
+
     - name: Create ArgoCD environment applications
       kubernetes.core.k8s:
         state: present

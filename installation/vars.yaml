@@ -23,6 +23,11 @@ operators:
     sourcenamespace: openshift-marketplace
     clusterwide: false
 
+aap_ocp:
+  ocp_domain: "{{ ocp_host }}"
+  name: aap
+  namespace: app
+
 gitea:
   namespace: gitea
   ocp_domain: "{{ ocp_host }}"
