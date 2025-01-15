@@ -1,0 +1,27 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  labels:
+    scaledobject.keda.sh/name: keda-scaled
+  name: payment-scaler
+  namespace: payment
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+spec:
+  maxReplicaCount: 10
+  minReplicaCount: 1
+  pollingInterval: 10
+  scaleTargetRef:
+    kind: Deployment
+    name: payment
+  triggers:
+  - authenticationRef:
+      name: keda-trigger-auth-prometheus
+    metadata:
+      authModes: bearer
+      metricName: http_requests_total
+      namespace: payment
+      query: sum(rate(http_requests_total{job="payment"}[1m]))
+      serverAddress: https://thanos-querier.openshift-monitoring.svc.cluster.local:9092
+      threshold: "0.3"
+    type: prometheus
