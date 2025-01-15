@@ -16,6 +16,12 @@ operators:
     source: redhat-operators
     sourcenamespace: openshift-marketplace
     clusterwide: true
+  - name: ansible-automation-platform-operator
+    namespace: aap
+    channel: stable-2.5
+    source: redhat-operators
+    sourcenamespace: openshift-marketplace
+    clusterwide: false
 
 gitea:
   namespace: gitea
