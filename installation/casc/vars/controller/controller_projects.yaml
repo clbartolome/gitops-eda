@@ -1,0 +1,7 @@
+controller_projects:
+  - name: "Ansible Gitops EDA Demo"
+    desc: "Ansible Gitops EDA Demo"
+    org: "gitops_eda_demo"
+    git_url: "{{ project_url }}"
+    git_branch: main
+    update_on_launch: false

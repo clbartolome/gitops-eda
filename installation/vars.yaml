@@ -26,7 +26,7 @@ operators:
 aap_ocp:
   ocp_domain: "{{ ocp_host }}"
   name: aap
-  namespace: app
+  namespace: aap
 
 gitea:
   namespace: gitea

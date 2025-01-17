@@ -1,0 +1,5 @@
+inventories:
+  - name: "Automation Controller Inventory"
+    desc: "Automation Controller Inventory"
+    org: "gitops_eda_demo"
+

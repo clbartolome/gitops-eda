@@ -1,0 +1,41 @@
+users:
+  - username: "user3"
+    password: "Summit24!"
+    email: "edaminilab@redhat.com"
+    organization: "eda_opentelemetry_workshop"
+    update_secrets: false
+    superuser: false
+    auditor: false
+    roles:
+      - organization: "eda_opentelemetry_workshop"
+        role: member
+      - credential: "ServiceNow Credential"
+        role: use
+      - credential: "OpenTelemetry Managed Host Credential"
+        role: use
+      - inventory: "Opentelemetry Inventory"
+        role: use
+      - inventory: "Opentelemetry Inventory"
+        role: adhoc
+      - inventory: "Automation Controller Inventory"
+        role: use
+      - project: "Ansible EDA OpenTelemetry"
+        role: use
+      - project: "Ansible EDA OpenTelemetry"
+        role: update
+      - job_template: "[JT] Close Servicenow Ticket"
+        role: execute
+      - job_template: "[JT] Open Servicenow Ticket"
+        role: execute
+      - job_template: "[JT] Parse Kafka Payload"
+        role: execute
+      - job_template: "[JT] Remediate Nginx"
+        role: execute
+      - workflow: "[WF] Acceptance Pipeline"
+        role: execute
+      - workflow: "[WF] Remediation Pipeline"
+        role: execute
+      - workflow: "[WF] Acceptance Pipeline"
+        role: approval
+      - workflow: "[WF] Remediation Pipeline"
+        role: approval

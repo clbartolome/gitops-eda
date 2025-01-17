@@ -1,0 +1,5 @@
+organizations:
+  - name: gitops_eda_demo
+    desc: "Organization created for the Gitops EDA Demo"
+    galaxy_credentials:
+      - Ansible Galaxy

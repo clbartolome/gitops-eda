@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
 
-  tasks:   
+  tasks:
 
     - name: Remove demo environment on ArgoCD
       kubernetes.core.k8s:

@@ -1,0 +1,4 @@
+eda_projects:
+  - name: OpenTelemetry EDA Project
+    description: OpenTelemetry EDA Project
+    url: "{{ telemetry_project_url }}"
