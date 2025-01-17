@@ -2,3 +2,6 @@ collections:
   - name: https://github.com/zaskan/demos.utils.git
     type: git
     version: main
+  - name: https://github.com/zaskan/ansible_automation_platform.casc.git
+    type: git
+    version: main

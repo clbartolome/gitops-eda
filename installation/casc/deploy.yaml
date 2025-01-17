@@ -1,31 +1,21 @@
----
-- name: CasC Deploy
-  hosts: localhost
-  gather_facts: false
-  tasks:
+- name: Include vars
+  ansible.builtin.include_vars:
+    file: vars/custom.yaml
 
-    - name: Include vars
-      ansible.builtin.include_vars:
-        file: vars/custom.yaml
+- name: Create Servicenow user
+  ansible.builtin.include_tasks:
+    file: servicenow.yaml
 
-    - name: Deploy Opentelemetry Stack
-      ansible.builtin.include_tasks: 
-        file: playbooks/opentelemetry.yaml
+- name: Configure Ansible Controller
+  ansible.builtin.include_role:
+    name: ansible_automation_platform.casc.controller
+  vars:
+    installation_type: vm
+    controller_vars_dir: vars/controller/*
 
-    - name: Create Servicenow user
-      ansible.builtin.include_tasks: 
-        file: playbooks/servicenow.yaml
-
-    - name: Configure Ansible Controller
-      ansible.builtin.include_role: 
-        name: ansible_automation_platform.casc.controller
-      vars: 
-        installation_type: vm
-        controller_vars_dir: vars/controller/*
-
-    - name: Configure Ansible Eda
-      ansible.builtin.include_role: 
-        name: ansible_automation_platform.casc.eda
-      vars:
-        installation_type: vm
-        eda_vars_dir: vars/eda/*
+- name: Configure Ansible Eda
+  ansible.builtin.include_role:
+    name: ansible_automation_platform.casc.eda
+  vars:
+    installation_type: vm
+    eda_vars_dir: vars/eda/*

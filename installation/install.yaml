@@ -3,42 +3,42 @@
   hosts: localhost
   gather_facts: false
 
-  tasks:      
+  tasks:
 
-    # - name: Install collections
-    #   ansible.builtin.command: ansible-galaxy collection install -r collections/requirements.yaml 
+    - name: Install collections
+      ansible.builtin.command: ansible-galaxy collection install -r collections/requirements.yaml
 
-    # - name: Create Demo namespaces
-    #   kubernetes.core.k8s:
-    #     state: present
-    #     definition:
-    #       apiVersion: project.openshift.io/v1
-    #       kind: Project
-    #       metadata:
-    #         name: "{{ namespace.name }}"
-    #   loop: "{{ namespaces }}"
-    #   loop_control:
-    #     loop_var: namespace
+    - name: Create Demo namespaces
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: project.openshift.io/v1
+          kind: Project
+          metadata:
+            name: "{{ namespace.name }}"
+      loop: "{{ namespaces }}"
+      loop_control:
+        loop_var: namespace
 
-    # - name: Setup Gitea
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.gitea
+    - name: Setup Gitea
+      ansible.builtin.include_role:
+        name: demos.utils.gitea
 
-    # - name: Create thanos SA
-    #   ansible.builtin.command:
-    #     cmd: oc create serviceaccount thanos -n payment
+    - name: Create thanos SA
+      ansible.builtin.command:
+        cmd: oc create serviceaccount thanos -n payment
 
-    # - name: Install required operators
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.operator
+    - name: Install required operators
+      ansible.builtin.include_role:
+        name: demos.utils.operator
 
-    # - name: Configure ArgoCD
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.argocd
+    - name: Configure ArgoCD
+      ansible.builtin.include_role:
+        name: demos.utils.argocd
 
     - name: Configure AAP
       ansible.builtin.include_role:
-        name: demos.utils.aap_ocp    
+        name: demos.utils.aap_ocp
 
     - name: Create ArgoCD environment applications
       kubernetes.core.k8s:
@@ -61,7 +61,11 @@
             syncPolicy:
               automated:
                 prune: true
-                selfHeal: true  
-
+                selfHeal: true
+    
+    - name: Trigger Ansible Automation Platform Configuration as Code
+      ansible.builtin.include_tasks: 
+        file: installation/casc/deploy.yaml
+        
   vars_files:
     - vars.yaml

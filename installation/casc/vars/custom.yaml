@@ -1,0 +1,5 @@
+sn_host: "{{ lookup('ansible.builtin.env', 'SERVICENOW_HOST' }}"
+sn_username: "{{ lookup('ansible.builtin.env', 'SERVICENOW_USER' }}"
+sn_password: "{{ lookup('ansible.builtin.env', 'SERVICENOW_PASS' }}"
+
+
