@@ -2,7 +2,8 @@ users:
   - username: "gitops"
     password: "Summit24!"
     email: "edaminilab@redhat.com"
-    organization: "gitops_eda_demo"
+    organizations: 
+      - gitops_eda_demo
     update_secrets: false
     superuser: false
     auditor: false

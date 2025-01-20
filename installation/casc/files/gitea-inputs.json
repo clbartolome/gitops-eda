@@ -1,25 +1,25 @@
 {
   "fields": [
     {
-      "id": "gitlab_host",
+      "id": "gitea_host",
       "type": "string",
-      "label": "Gitlab Host"
+      "label": "gitea Host"
     },
     {
-      "id": "gitlab_username",
+      "id": "gitea_username",
       "type": "string",
-      "label": "Gitlab Username"
+      "label": "gitea Username"
     },
     {
-      "id": "gitlab_password",
+      "id": "gitea_password",
       "type": "string",
-      "label": "Gitlab Password",
+      "label": "gitea Password",
       "secret": true
     }
   ],
   "required": [
-    "gitlab_host",
-    "gitlab_username",
-    "gitlab_password"
+    "gitea_host",
+    "gitea_username",
+    "gitea_password"
   ]
 }
