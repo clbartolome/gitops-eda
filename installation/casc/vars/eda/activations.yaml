@@ -8,3 +8,4 @@ activations:
     awx_token: "Ansible Controller"
     state: present
     org: gitops_eda_demo
+    credential: "Red Hat Ansible Automation Platform Credential"

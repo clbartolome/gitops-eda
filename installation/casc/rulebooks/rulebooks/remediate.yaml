@@ -1,24 +1,38 @@
-- name: Process Alermanager events
+---
+- name: EDA Listener for Alertmanager and Servicenow
   hosts: localhost
   sources:
-    - ansible.eda.kafka:
-        host: 10.10.10.146
-        port: 9093
-        topic: otel-events
-        security_protocol: SSL
-        cafile: /etc/ssl/certs/ca.crt
-        certfile: /etc/ssl/certs/client.crt
-        keyfile: /etc/ssl/certs/client.key
-        check_hostname: false
+    - name: Listen to Alertmanager
+      ansible.eda.alertmanager:
+        host: 0.0.0.0
+        port: 5000
+        data_host_path: ""
 
+    - name: Check new Incidents
+      cloin.eda.snow_records:
+        instance: "{{ instance }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        table: incident
+        interval: 1
   rules:
-    - name: Trigger remediation
-      condition: event.body != ""
+    - name: Get Alertmanager Alerts
+      condition: event.alert.labels.alertname == "PVCUsageHigh" or event.alert.labels.alertname == "App02NamespaceIsMissing"
       action:
         run_job_template:
-          name: "[JT] Parse Kafka Payload"
-          organization: eda_opentelemetry_workshop
+          name: "[JT] Open Servicenow Incident"
+          organization: "Event-Driven Ansible"
           job_args:
             extra_vars:
-              kafka_message: "{{ event }}"
+              payload: "{{ event.alert }}"
 
+    - name: Trigger Remediation for PVCUsageHigh
+      condition: event.short_description == "PVCUsageHigh"
+      action:
+        run_workflow_template:
+          name: "[WF] Extend Openshift Physical Volume"
+          organization: "Event-Driven Ansible"
+          job_args:
+            extra_vars:
+              incident_id: "{{ event.number }}"
+              description: "{{ event.description }}"
