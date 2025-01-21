@@ -12,6 +12,7 @@ resources:
 - deployment.yaml
 - service.yaml
 - route.yaml
+- payment-scaler.yaml
 
 images:
 - name: payment

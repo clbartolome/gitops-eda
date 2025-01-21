@@ -48,3 +48,6 @@ The query we use `rate(http_requests_total{job="payment"}[1m])`, calculates the 
 
 KEDA will evaluate the result independently for each instance, and if at least one pod exceeds the threshold of 1 request per second, KEDA will increase the total number of pods.
 
+
+
+kube_horizontalpodautoscaler_status_current_replicas{horizontalpodautoscaler="keda-hpa-payment-scaler", namespace="payment"}/kube_horizontalpodautoscaler_spec_max_replicas{horizontalpodautoscaler="keda-hpa-payment-scaler", namespace="payment"}*100

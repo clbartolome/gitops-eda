@@ -4,7 +4,7 @@ import { sleep } from 'k6';
   
 export const options = {
   vus: 10,
-  duration: '30s',
+  duration: '5m',
 };
 
 export default function () {
@@ -22,5 +22,5 @@ export default function () {
   };
 
   http.post(url, payload, params);
-  sleep(0.1)
+  sleep(1)
 }
