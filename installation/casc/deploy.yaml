@@ -11,11 +11,11 @@
     name: ansible_automation_platform.casc.controller
   vars:
     installation_type: ocp
-    controller_vars_dir: casc/vars/controller/*
+    controller_vars_dir: casc/vars/controller
 
 - name: Configure Ansible Eda
   ansible.builtin.include_role:
     name: ansible_automation_platform.casc.eda
   vars:
     installation_type: ocp
-    eda_vars_dir: casc/vars/eda/*
+    eda_vars_dir: casc/vars/eda

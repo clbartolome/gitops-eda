@@ -1,9 +1,10 @@
 activations:
-  - name: Kafka Rulebook Activation
-    description: Kafka Rulebook Activation
-    project: "OpenTelemetry EDA Project"
-    rulebook: kafka_ssl.yaml
+  - name: Alertmanager Rulebook Activation
+    description: Alertmanager Rulebook Activation
+    project: "Ansible Gitops EDA Demo"
+    rulebook: remediate.yaml
     decision_environment: EDA Decision Environment
     enabled: true
     awx_token: "Ansible Controller"
     state: present
+    org: gitops_eda_demo

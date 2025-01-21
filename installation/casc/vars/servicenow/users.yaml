@@ -1,4 +1,4 @@
 users:
   - username: "ansible"
-    password: "R3dh4t1!"
+    password: "openshift"
     role: "sn_incident_read"

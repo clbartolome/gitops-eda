@@ -1,8 +1,0 @@
-collections:
-  - name: https://github.com/zaskan/ansible_automation_platform.casc.git
-    type: git
-  - name: ansible.controller
-  - name: ansible.platform
-  - name: infra.eda_configuration
-  - name: servicenow.itsm
-  - name: kubernetes.core

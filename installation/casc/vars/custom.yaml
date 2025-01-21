@@ -2,4 +2,6 @@ sn_host: "{{ lookup('ansible.builtin.env', 'SERVICENOW_HOST') }}"
 sn_username: "{{ lookup('ansible.builtin.env', 'SERVICENOW_USER') }}"
 sn_password: "{{ lookup('ansible.builtin.env', 'SERVICENOW_PASS') }}"
 
-
+gitea_host: "https://gitea-{{ gitea.namespace }}.apps.{{ gitea.ocp_domain }}"
+gitea_username: "gitea"
+gitea_password: "openshift"

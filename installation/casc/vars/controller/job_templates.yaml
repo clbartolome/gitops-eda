@@ -3,7 +3,7 @@ jobtemplates:
     org: "gitops_eda_demo"
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
-    playbook: "playbooks/open_ticket.yaml"
+    playbook: "open_ticket.yaml"
     creds:
       - "ServiceNow Credential"
     use_fact_cache: false
@@ -16,7 +16,7 @@ jobtemplates:
     org: "gitops_eda_demo"
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
-    playbook: "playbooks/close_ticket.yaml"
+    playbook: "close_ticket.yaml"
     creds:
       - "Red Hat Ansible Automation Platform Credential"
       - "ServiceNow Credential"
@@ -26,11 +26,11 @@ jobtemplates:
     allow_simultaneous: true
     execution_environment: "Default execution environment"
 
-  - name: "[JT] Parse Kafka Payload"
+  - name: "[JT] Parse Alertmanager Payload"
     org: "gitops_eda_demo"
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
-    playbook: "playbooks/parse_payload.yaml"
+    playbook: "parse_payload.yaml"
     creds:
       - "Red Hat Ansible Automation Platform Credential"
     use_fact_cache: false
@@ -39,31 +39,15 @@ jobtemplates:
     allow_simultaneous: true
     execution_environment: "Default execution environment"
 
-  - name: "[JT] Remediate Nginx"
+  - name: "[JT] Autoscale Application"
     org: "gitops_eda_demo"
-    inv: "Opentelemetry Inventory"
+    inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
-    playbook: "playbooks/remediate.yaml"
-    creds:
+    playbook: "autoscaler.yaml"
+    creds: []
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true
     allow_simultaneous: true
     execution_environment: "Default execution environment"
 
-  - name: "[JT] Clean Demo Environment"
-    org: "gitops_eda_demo"
-    inv: "Opentelemetry Inventory"
-    project: "Ansible Gitops EDA Demo"
-    playbook: "playbooks/reset.yaml"
-    creds:
-      - "Red Hat Ansible Automation Platform Credential"
-      - "Red Hat Event-Driven Ansible Credential"
-      - "ServiceNow Credential"
-      - "Gitlea Credential"
-      - "Servicenow Incidents Credential"
-    use_fact_cache: false
-    ask_limit_on_launch: false
-    ask_variables_on_launch: false
-    allow_simultaneous: false
-    execution_environment: "Default execution environment"

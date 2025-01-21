@@ -1,4 +1,5 @@
 eda_projects:
-  - name: OpenTelemetry EDA Project
-    description: OpenTelemetry EDA Project
-    url: "{{ telemetry_project_url }}"
+  - name: Ansible Gitops EDA Demo
+    description: Ansible Gitops EDA Demo
+    url: "{{ gitea_host }}/gitea/ansible-rulebooks.git"
+    org: gitops_eda_demo

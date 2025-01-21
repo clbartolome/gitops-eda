@@ -22,9 +22,9 @@
     #   loop_control:
     #     loop_var: namespace
 
-    # - name: Setup Gitea
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.gitea
+    - name: Setup Gitea
+      ansible.builtin.include_role:
+        name: demos.utils.gitea
 
     # - name: Create thanos service account
     #   kubernetes.core.k8s:

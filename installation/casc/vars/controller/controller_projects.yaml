@@ -2,6 +2,6 @@ controller_projects:
   - name: "Ansible Gitops EDA Demo"
     desc: "Ansible Gitops EDA Demo"
     org: "gitops_eda_demo"
-    git_url: "{{ project_url }}"
-    git_branch: main
+    git_url: "{{ gitea_host }}/gitea/ansible-playbooks.git"
+    git_branch: master
     update_on_launch: false
