@@ -1,4 +1,4 @@
-- name: Process OpenTelemetry events
+- name: Process Alermanager events
   hosts: localhost
   sources:
     - ansible.eda.kafka:
@@ -18,7 +18,7 @@
         run_job_template:
           name: "[JT] Parse Kafka Payload"
           organization: eda_opentelemetry_workshop
-          job_args: 
-            extra_vars: 
+          job_args:
+            extra_vars:
               kafka_message: "{{ event }}"
 
