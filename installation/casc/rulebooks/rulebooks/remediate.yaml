@@ -1,4 +1,3 @@
----
 - name: EDA Listener for Alertmanager and Servicenow
   hosts: localhost
   sources:
@@ -17,21 +16,23 @@
         interval: 1
   rules:
     - name: Get Alertmanager Alerts
-      condition: event.alert.labels.alertname == "PVCUsageHigh" or event.alert.labels.alertname == "App02NamespaceIsMissing"
+      condition: event.alert.labels.alertname == "HPAReplicasAtMaxCapacity"
       action:
         run_job_template:
-          name: "[JT] Open Servicenow Incident"
-          organization: "Event-Driven Ansible"
+          name: "[JT] Open Servicenow Ticket"
+          organization: "gitops_eda_demo"
           job_args:
             extra_vars:
-              payload: "{{ event.alert }}"
+              title: "{{ event.alert.labels.alertname }}"
+              description: "{{ event.alert.annotations.description }}"
+              date: "{{ event.alert.startsAt }}"
 
-    - name: Trigger Remediation for PVCUsageHigh
-      condition: event.short_description == "PVCUsageHigh"
+    - name: Trigger Remediation for HPAReplicasAtMaxCapacity
+      condition: event.short_description == "HPAReplicasAtMaxCapacity"
       action:
         run_workflow_template:
-          name: "[WF] Extend Openshift Physical Volume"
-          organization: "Event-Driven Ansible"
+          name: "[WF] Autoscale Pipeline"
+          organization: "gitops_eda_demo"
           job_args:
             extra_vars:
               incident_id: "{{ event.number }}"

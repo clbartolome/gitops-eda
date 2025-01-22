@@ -1,5 +1,0 @@
-eda_users:
-  - username: "user3"
-    password: "Summit24!"
-    roles: Viewer
-    state: present
