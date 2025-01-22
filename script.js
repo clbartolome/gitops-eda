@@ -22,5 +22,5 @@ export default function () {
   };
 
   http.post(url, payload, params);
-  sleep(1)
+  sleep(2.5)
 }

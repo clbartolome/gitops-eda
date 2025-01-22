@@ -2,7 +2,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: hpa-payment-alert
-  namespace: payment 
+  namespace: payment
+  labels:
+    alert: hpa-payment-alert
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
