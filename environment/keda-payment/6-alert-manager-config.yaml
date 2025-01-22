@@ -8,6 +8,10 @@ metadata:
 spec:
   route:
     receiver: 'webhook'
+    groupBy: ['alertname']
+    groupInterval: 5s
+    groupWait: 1s
+    repeatInterval: 1h
   receivers:
   - name: 'webhook'
     webhookConfigs:
