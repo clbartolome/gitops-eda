@@ -9,5 +9,4 @@ data:
   config.yaml: |
     enableUserWorkload: true
     alertmanagerMain:
-      enabled: true
-      enableUserAlertmanagerConfig: true 
+      enableUserAlertmanagerConfig: true

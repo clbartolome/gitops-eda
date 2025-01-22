@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-workload-monitoring-config
+  namespace: openshift-user-workload-monitoring
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+data:
+  config.yaml: |
+    alertmanager:
+      enabled: true 
+      enableAlertmanagerConfig: true
