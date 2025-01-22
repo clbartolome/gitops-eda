@@ -4,18 +4,19 @@ metadata:
   name: hpa-payment-alert
   namespace: payment
   labels:
+    role: alert-rules
     alert: hpa-payment-alert
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
   groups:
-  - name: hpa-alerts
-    rules:
-    - alert: HPAReplicasAtMaxCapacity
-      expr: kube_horizontalpodautoscaler_status_current_replicas{horizontalpodautoscaler="keda-hpa-payment-scaler", namespace="payment"}/kube_horizontalpodautoscaler_spec_max_replicas{horizontalpodautoscaler="keda-hpa-payment-scaler", namespace="payment"}*100 >= 100
-      for: 1s
-      labels:
-        severity: warning
-      annotations:
-        summary: "KEDA Payment replicas at maximum capacity"
-        description: "KEDA Payment application has reached 100% of its max replicas."
+    - name: hpa-alerts
+      rules:
+        - alert: HPAReplicasAtMaxCapacity
+          expr: kube_horizontalpodautoscaler_status_current_replicas{horizontalpodautoscaler="keda-hpa-payment-scaler", namespace="payment"}/kube_horizontalpodautoscaler_spec_max_replicas{horizontalpodautoscaler="keda-hpa-payment-scaler", namespace="payment"}*100 >= 100
+          for: 1s
+          labels:
+            severity: warning
+          annotations:
+            summary: "KEDA Payment replicas at maximum capacity"
+            description: "KEDA Payment application has reached 100% of its max replicas."
