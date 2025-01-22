@@ -15,4 +15,4 @@ spec:
   receivers:
     - name: 'webhook'
       webhookConfigs:
-      - url: http://eda-routing.aap.svc.cluster.local:5000/endpoint
+      - url: http://alertmanager-webhook-logger.payment.svc.cluster.local
