@@ -16,11 +16,11 @@
         interval: 1
   rules:
     - name: Get Alertmanager Alerts
-      condition: event.alert.labels.alertname == "HPAReplicasAtMaxCapacity"
+      condition: event.alert.labels.alertname == "HPAReplicasAtMaxCapacity" and event.alert.status == "firing"
       action:
         run_job_template:
           name: "[JT] Open Servicenow Ticket"
-          organization: "gitops_eda_demo"
+          organization: "Default"
           job_args:
             extra_vars:
               title: "{{ event.alert.labels.alertname }}"
@@ -32,7 +32,7 @@
       action:
         run_workflow_template:
           name: "[WF] Autoscale Pipeline"
-          organization: "gitops_eda_demo"
+          organization: "Default"
           job_args:
             extra_vars:
               incident_id: "{{ event.number }}"

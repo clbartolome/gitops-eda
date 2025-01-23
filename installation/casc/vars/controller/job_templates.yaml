@@ -12,27 +12,14 @@ jobtemplates:
     allow_simultaneous: true
     execution_environment: "Default execution environment"
 
-  - name: "[JT] Close Servicenow Ticket"
+  - name: "[JT] Update Servicenow Ticket"
     org: "Default"
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
-    playbook: "close_ticket.yaml"
+    playbook: "update_ticket.yaml"
     creds:
       - "Red Hat Ansible Automation Platform Credential"
       - "ServiceNow Credential"
-    use_fact_cache: false
-    ask_limit_on_launch: false
-    ask_variables_on_launch: true
-    allow_simultaneous: true
-    execution_environment: "Default execution environment"
-
-  - name: "[JT] Parse Alertmanager Payload"
-    org: "Default"
-    inv: "Automation Controller Inventory"
-    project: "Ansible Gitops EDA Demo"
-    playbook: "parse_payload.yaml"
-    creds:
-      - "Red Hat Ansible Automation Platform Credential"
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true
@@ -45,6 +32,20 @@ jobtemplates:
     project: "Ansible Gitops EDA Demo"
     playbook: "autoscaler.yaml"
     creds: []
+    use_fact_cache: false
+    ask_limit_on_launch: false
+    ask_variables_on_launch: true
+    allow_simultaneous: true
+    execution_environment: "Default execution environment"
+
+  - name: "[JT] Synchronize ArgoCD"
+    org: "Default"
+    inv: "Automation Controller Inventory"
+    project: "Ansible Gitops EDA Demo"
+    playbook: "sync_argocd.yaml"
+    creds:
+      - "ArgoCD Credential"
+      - "Openshift Credential"
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true

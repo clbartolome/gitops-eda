@@ -3,4 +3,5 @@ decision_environments:
     description: EDA Decision Environment
     image_url: "quay.io/rhn_support_rafsanch/e-eda-rhel8:latest"
     org: Default
+    credential: 'Quay Registry Credential'
 

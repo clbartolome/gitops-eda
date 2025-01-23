@@ -10,9 +10,12 @@ workflowjobtemplates:
             name: "Default"
           name: "[JT] Autoscale Application"
           type: job_template
-      - identifier: "Close Servicenow Ticket"
+        related:
+          success_nodes:
+            - identifier: "Update Servicenow Ticket"
+      - identifier: "Update Servicenow Ticket"
         unified_job_template:
           organization:
             name: "Default"
-          name: "[JT] Close Servicenow Ticket"
+          name: "[JT] Update Servicenow Ticket"
           type: job_template

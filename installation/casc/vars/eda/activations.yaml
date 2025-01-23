@@ -2,9 +2,12 @@ activations:
   - name: eda-routing
     description: Alertmanager Rulebook Activation
     project: "Ansible Gitops EDA Demo"
-    rulebook: remediate.yaml
+    rulebook: "remediate.yaml"
     decision_environment: EDA Decision Environment
     enabled: true
     state: present
     org: Default
-    credential: "Red Hat Ansible Automation Platform Credential"
+    awx_token: "Ansible Controller"
+    credential: 
+      - "Red Hat Ansible Automation Platform Credential"
+      - "ServiceNow Credential"
