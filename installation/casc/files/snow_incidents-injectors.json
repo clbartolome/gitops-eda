@@ -1,5 +1,0 @@
-{
-  "env": {
-    "SNOW_INCIDENT": "{{ snow_incident }}"
-  }
-}

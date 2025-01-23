@@ -1,7 +1,0 @@
-applications:
-  - name: "Event-Driven Ansible"
-    description: Event-Driven Ansible 
-    organization: "gitops_eda_demo"
-    state: present
-    client_type: public
-    auth_grant_type: password
