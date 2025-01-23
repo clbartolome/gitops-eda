@@ -1,9 +1,60 @@
 ---
-- name: Trigger Remediation
-  hosts: all
-  gather_facts: false
+- name: Increment HPA Replicas 
+  hosts: localhost
+  gather_facts: true
+
   tasks:
 
-    - name: Trigger Remediation
-      ansible.builtin.command: podman start nginx
+    - name: Get current date
+      ansible.builtin.set_fact:
+        operation_time: "{{ ansible_date_time.iso8601_basic_short }}"
 
+    - name: Clone Configuration Repository
+      ansible.builtin.include_role:
+        name: demos.utils.git
+      vars:
+        git_repository: "{{ repository }}"
+        git_directory: "/tmp/{{ operation_time }}"
+        git_operation: clone
+      register: git_result
+
+    - name: Get Content of File
+      ansible.builtin.slurp:
+        src: "/tmp/{{ operation_time }}/{{ manifest }}"
+      register: file
+
+    - name: Get key
+      ansible.builtin.set_fact:
+        key: "{{ file['content'] | b64decode | regex_search('maxReplicaCount:(.)+') }}"
+
+    - name: Get Unit
+      ansible.builtin.set_fact:
+        unit: "{{ key[-2:] }}"
+
+    - name: Get Current Replicas number
+      ansible.builtin.set_fact:
+        current_replicas: "{{ file['content'] | b64decode | regex_search('maxReplicaCount:(.)+') | regex_search('[0-9]+') | int }}"
+
+    - name: Get New Replicas number
+      ansible.builtin.set_fact:
+        new_replicas: "{{ (current_replicas | float * 1.33) | round(0, 'ceil') | int }}"
+
+    - name: Modify Manifest
+      ansible.builtin.lineinfile:
+        state: present
+        backrefs: true
+        path: "/tmp/{{ operation_time }}/{{ manifest }}"
+        regexp: '^(\s*)maxReplicaCount:.*'
+        line: '\1maxReplicaCount: {{ new_replicas }}'
+
+    - name: Commit configuration to repository
+      ansible.builtin.include_role:
+        name: demos.utils.git
+      vars:
+        git_operation: push
+        git_repository: "{{ repository }}"
+        git_directory: "/tmp/{{ operation_time }}"
+        git_email: "{{ lookup('env', 'GITEA_EMAIL') }}"
+        git_user: "{{ lookup('env', 'GITEA_USERNAME') }}"
+        git_message: "Extended replicas to {{ new_replicas }}"
+      register: git_result
