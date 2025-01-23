@@ -27,10 +27,6 @@
       ansible.builtin.set_fact:
         key: "{{ file['content'] | b64decode | regex_search('maxReplicaCount:(.)+') }}"
 
-    - name: Get Unit
-      ansible.builtin.set_fact:
-        unit: "{{ key[-2:] }}"
-
     - name: Get Current Replicas number
       ansible.builtin.set_fact:
         current_replicas: "{{ file['content'] | b64decode | regex_search('maxReplicaCount:(.)+') | regex_search('[0-9]+') | int }}"
