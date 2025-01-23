@@ -1,6 +1,6 @@
 jobtemplates:
   - name: "[JT] Open Servicenow Ticket"
-    org: "gitops_eda_demo"
+    org: "Default"
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
     playbook: "open_ticket.yaml"
@@ -13,7 +13,7 @@ jobtemplates:
     execution_environment: "Default execution environment"
 
   - name: "[JT] Close Servicenow Ticket"
-    org: "gitops_eda_demo"
+    org: "Default"
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
     playbook: "close_ticket.yaml"
@@ -27,7 +27,7 @@ jobtemplates:
     execution_environment: "Default execution environment"
 
   - name: "[JT] Parse Alertmanager Payload"
-    org: "gitops_eda_demo"
+    org: "Default"
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
     playbook: "parse_payload.yaml"
@@ -40,7 +40,7 @@ jobtemplates:
     execution_environment: "Default execution environment"
 
   - name: "[JT] Autoscale Application"
-    org: "gitops_eda_demo"
+    org: "Default"
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
     playbook: "autoscaler.yaml"

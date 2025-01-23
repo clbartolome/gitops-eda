@@ -2,4 +2,4 @@ eda_projects:
   - name: Ansible Gitops EDA Demo
     description: Ansible Gitops EDA Demo
     url: "{{ gitea_host }}/gitea/ansible-rulebooks.git"
-    org: gitops_eda_demo
+    org: Default

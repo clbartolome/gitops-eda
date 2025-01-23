@@ -2,5 +2,5 @@ decision_environments:
   - name: EDA Decision Environment
     description: EDA Decision Environment
     image_url: "quay.io/rhn_support_rafsanch/e-eda-rhel8:latest"
-    org: gitops_eda_demo
+    org: Default
 
