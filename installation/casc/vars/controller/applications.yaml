@@ -1,0 +1,7 @@
+applications:
+  - name: "Event-Driven Ansible"
+    description: Event-Driven Ansible 
+    organization: "Default"
+    state: present
+    client_type: public
+    auth_grant_type: password
