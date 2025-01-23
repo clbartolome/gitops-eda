@@ -13,5 +13,5 @@
           state: 3
           incident_state: 3
           number: "{{ incident_id }}"
-          work_notes: "The max number of replicas for the app Payment, has been increased to {{ new_replicas }}. Please, check "
+          work_notes: "The max number of replicas for the app Payment, has been increased to {{ new_replicas }}. Please, check the current value of replicas in the file {{ manifest }} stored in the repository {{ repository }}."
           caller: "admin"

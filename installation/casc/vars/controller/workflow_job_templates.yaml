@@ -12,6 +12,15 @@ workflowjobtemplates:
           type: job_template
         related:
           success_nodes:
+            - identifier: "Synchronize Argocd"
+      - identifier: "Synchronize Argocd"
+        unified_job_template:
+          organization:
+            name: "Default"
+          name: "[JT] Synchronize ArgoCD"
+          type: job_template
+        related:
+          success_nodes:
             - identifier: "Update Servicenow Ticket"
       - identifier: "Update Servicenow Ticket"
         unified_job_template:
@@ -19,3 +28,4 @@ workflowjobtemplates:
             name: "Default"
           name: "[JT] Update Servicenow Ticket"
           type: job_template
+

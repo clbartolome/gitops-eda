@@ -31,7 +31,8 @@ jobtemplates:
     inv: "Automation Controller Inventory"
     project: "Ansible Gitops EDA Demo"
     playbook: "autoscaler.yaml"
-    creds: []
+    creds: 
+      - "Gitea Credential"
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true
