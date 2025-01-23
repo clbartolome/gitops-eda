@@ -8,11 +8,10 @@
       servicenow.itsm.api:
         resource: incident
         action: patch
-        sys_id: "{{ record.sys_id }}"
+        sys_id: "{{ ansible_eda.event.sys_id }}"
         data:
           state: 3
           incident_state: 3
-          number: "{{ record.task_effective_number }}"
-          close_code: "Resolved by Event_driven Ansible"
-          close_notes: "Restarted Nginx Container"
+          number: "{{ incident_id }}"
+          work_notes: "The max number of replicas for the app Payment, has been increased to {{ new_replicas }}. Please, check "
           caller: "admin"

@@ -54,3 +54,8 @@
         git_user: "{{ lookup('env', 'GITEA_USERNAME') }}"
         git_message: "Extended replicas to {{ new_replicas }} by Ansible. Please, check incident {{ incident_id }}"
       register: git_result
+
+    - name: Set variables for the next node
+      ansible.builtin.set_stats:
+        data:
+          new_replicas: "{{ new_replicas }}"
