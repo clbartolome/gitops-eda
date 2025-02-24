@@ -1,18 +1,19 @@
 package main
 
 import (
-	"log"
 	"encoding/json"
+	"log"
 	"net/http"
+
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var httpRequestsTotal = prometheus.NewCounter(
-  prometheus.CounterOpts{
-    Name: "http_requests_total",
-    Help: "Total number of http requests.",
-  },
+	prometheus.CounterOpts{
+		Name: "http_requests_total",
+		Help: "Total number of http requests.",
+	},
 )
 
 func main() {
@@ -24,9 +25,9 @@ func main() {
 	httpMux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 	httpMux.HandleFunc("/", handleHomePage)
 	httpMux.HandleFunc("/api/pay", handlePayment)
-  httpMux.Handle("/metrics", promhttp.Handler())
+	httpMux.Handle("/metrics", promhttp.Handler())
 
-  log.Printf("Payment-microservice listening on 8080")
+	log.Printf("Payment-microservice listening on 8080")
 	http.ListenAndServe(":8080", httpMux) // Run the service on port 8080
 
 }
@@ -46,7 +47,7 @@ func handlePayment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-  httpRequestsTotal.Inc()
+	httpRequestsTotal.Inc()
 
 	type PaymentRequest struct {
 		Amount   float64 `json:"amount"`
@@ -63,9 +64,9 @@ func handlePayment(w http.ResponseWriter, r *http.Request) {
 
 	// Simulate payment processing logic
 	response := map[string]interface{}{
-		"status":  "success",
-		"message": "Payment processed successfully!",
-		"amount":  req.Amount,
+		"status":   "success",
+		"message":  "Payment processed successfully!",
+		"amount":   req.Amount,
 		"currency": req.Currency,
 	}
 
