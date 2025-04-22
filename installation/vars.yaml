@@ -38,11 +38,11 @@ gitea:
       path: "/payment-deploy"
     - name: ansible-rulebooks
       url: https://github.com/clbartolome/gitops-eda.git
-      branch: master
+      branch: vol_increase_feature
       path: "/installation/casc/rulebooks"
     - name: ansible-playbooks
       url: https://github.com/clbartolome/gitops-eda.git
-      branch: master
+      branch: vol_increase_feature
       path: "/installation/casc/playbooks"
   users: []
 
