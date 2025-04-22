@@ -19,8 +19,8 @@
       condition: event.alert.labels.alertname == "PVCUsageHigh" and event.alert.status == "firing"
       action:
         run_job_template:
-          name: "[JT] Open Servicenow Incident"
-          organization: "Event-Driven Ansible"
+          name: "[JT] Open Servicenow Ticket"
+          organization: "Default"
           job_args:
             extra_vars:
               title: "{{ event.alert.labels.alertname }}"
@@ -32,7 +32,7 @@
       action:
         run_workflow_template:
           name: "[WF] Extend Openshift Physical Volume"
-          organization: "Event-Driven Ansible"
+          organization: "Default"
           job_args:
             extra_vars:
               incident_id: "{{ event.number }}"
