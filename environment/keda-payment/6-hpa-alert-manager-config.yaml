@@ -15,4 +15,4 @@ spec:
   receivers:
     - name: 'webhook'
       webhookConfigs:
-      - url: http://hpa-activation-job.aap.svc.cluster.local:5000/endpoint
+      - url: http://payment-hpa-rulebook-activation.aap.svc.cluster.local:5000/endpoint

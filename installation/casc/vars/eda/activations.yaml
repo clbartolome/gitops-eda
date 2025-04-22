@@ -1,5 +1,5 @@
 activations:
-  - name: Payment - HPA Rulebook Activation
+  - name: Payment HPA Rulebook Activation
     description: HPA Rulebook Activation for payment application
     project: "Ansible Gitops EDA Demo"
     rulebook: "hpa_rulebook.yaml"
@@ -11,8 +11,7 @@ activations:
     credential: 
       - "Red Hat Ansible Automation Platform Credential"
       - "ServiceNow Credential"
-    k8s_service_name: hpa-activation-job
-  - name: Payment - PVC Rulebook Activation
+  - name: Payment PVC Rulebook Activation
     description: Alertmanager Rulebook Activationf or payment application
     project: "Ansible Gitops EDA Demo"
     rulebook: "pvc_rulebook.yaml"
@@ -24,4 +23,3 @@ activations:
     credential: 
       - "Red Hat Ansible Automation Platform Credential"
       - "ServiceNow Credential"
-    k8s_service_name: pvc-activation-job
