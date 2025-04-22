@@ -1,8 +1,20 @@
 activations:
-  - name: eda-routing
-    description: Alertmanager Rulebook Activation
+  - name: Payment - HPA Rulebook Activation
+    description: HPA Rulebook Activation for payment application
     project: "Ansible Gitops EDA Demo"
-    rulebook: "remediate.yaml"
+    rulebook: "hpa_rulebook.yaml"
+    decision_environment: "EDA Decision Environment"
+    enabled: true
+    state: present
+    org: "Default"
+    awx_token: "Ansible Controller"
+    credential: 
+      - "Red Hat Ansible Automation Platform Credential"
+      - "ServiceNow Credential"
+  - name: Payment - PVC Rulebook Activation
+    description: Alertmanager Rulebook Activationf or payment application
+    project: "Ansible Gitops EDA Demo"
+    rulebook: "pvc_rulebook.yaml"
     decision_environment: "EDA Decision Environment"
     enabled: true
     state: present

@@ -29,3 +29,32 @@ workflowjobtemplates:
           name: "[JT] Update Servicenow Ticket"
           type: job_template
 
+  - name: "[WF] Extend Openshift Physical Volume"
+    org: "Default"
+    ask_variables_on_launch: true
+    allow_simultaneous: false
+    steps:
+      - identifier: "Extend Physical Volume"
+        unified_job_template:
+          organization:
+            name: "Default"
+          name: "[JT] Extend Physical Volume"
+          type: job_template
+        related:
+          success_nodes:
+            - identifier: "Synchronize Argocd"
+      - identifier: "Synchronize Argocd"
+        unified_job_template:
+          organization:
+            name: "Default"
+          name: "[JT] Synchronize ArgoCD"
+          type: job_template
+        related:
+          success_nodes:
+            - identifier: "Update Servicenow Ticket"
+      - identifier: "Update Servicenow Ticket"
+        unified_job_template:
+          organization:
+            name: "Default"
+          name: "[JT] Update Servicenow Ticket"
+          type: job_template

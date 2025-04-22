@@ -1,0 +1,68 @@
+---
+- name: Extend PVC
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+
+    - name: Get manifest file
+      ansible.builtin.set_fact:
+        manifest: "{{ description | regex_search('manifest:\\s*(\\w+\\.([a-zA-Z]+))', '\\1') }}"
+
+    - name: Get current date
+      ansible.builtin.set_fact:
+        operation_time: "{{ ansible_date_time.iso8601_basic_short }}"
+
+    - name: Clone Configuration Repository
+      ansible.builtin.include_role:
+        name: git
+      vars:
+        git_repository: "{{ lookup('env', 'GITEA_REPO') }}"
+        git_directory: "/tmp/{{ operation_time }}"
+        git_operation: clone
+      register: git_result
+
+    - name: Get Content of File
+      ansible.builtin.slurp:
+        src: "/tmp/{{ operation_time }}/{{ manifest[0] }}"
+      register: file
+
+    - name: Get key
+      ansible.builtin.set_fact:
+        key: "{{ file['content'] | b64decode | regex_search('storage:(.)+') }}"
+
+    - name: Get Unit
+      ansible.builtin.set_fact:
+        unit: "{{ key[-2:] }}"
+
+    - name: Get Current Size
+      ansible.builtin.set_fact:
+        current_size: "{{ file['content'] | b64decode | regex_search('storage:(.)+') | regex_search('[0-9]+') | int }}"
+
+    - name: Get Extra Space
+      ansible.builtin.set_fact:
+        extra_space: "{{ (current_size | int) * 20 // 100 }}"
+
+    - name: Get New Size
+      ansible.builtin.set_fact:
+        new_size: "{{ (current_size | int) + extra_space | int }}"
+
+    - name: Modify Manifest
+      ansible.builtin.lineinfile:
+        state: present
+        backrefs: true
+        path: "/tmp/{{ operation_time }}/{{ manifest[0] }}"
+        regexp: '^(\s*)storage:.*'
+        line: '\1storage: {{ new_size }}{{ unit }}'
+
+    - name: Commit configuration to repository
+      ansible.builtin.include_role:
+        name: git
+      vars:
+        git_operation: push
+        git_repository: "{{ lookup('env', 'GITEA_REPO') }}"
+        git_directory: "/tmp/{{ operation_time }}"
+        git_email: "{{ lookup('env', 'GITEA_EMAIL') }}"
+        git_user: "{{ lookup('env', 'GITEA_USERNAME') }}"
+        git_message: "Extended storage to {{ new_size }}{{ unit }}"
+      register: git_result

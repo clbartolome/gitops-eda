@@ -39,6 +39,19 @@ jobtemplates:
     allow_simultaneous: true
     execution_environment: "Default execution environment"
 
+  - name: "[JT] Extend Physical Volume"
+    org: "Default"
+    inv: "Automation Controller Inventory"
+    project: "Ansible Gitops EDA Demo"
+    playbook: "pvc.yaml"
+    creds: 
+      - "Gitea Credential"
+    use_fact_cache: false
+    ask_limit_on_launch: false
+    ask_variables_on_launch: true
+    allow_simultaneous: true
+    execution_environment: "Default execution environment"
+
   - name: "[JT] Synchronize ArgoCD"
     org: "Default"
     inv: "Automation Controller Inventory"
