@@ -24,12 +24,12 @@
     resource: sys_user
     action: post
     data:
-      first_name: "{{ users[0].username }}"                                   
-      last_name: "{{ users[0].username }}"                                      
-      name: "{{ users[0].username }}"                                             
-      user_name: "{{ users[0].username }}"                           
-      user_password: "{{ users[0].password }}"                      
-      title: "{{ users[0].username }}"                                   
+      first_name: "{{ users[0].username }}"
+      last_name: "{{ users[0].username }}"
+      name: "{{ users[0].username }}"
+      user_name: "{{ users[0].username }}"
+      user_password: "{{ users[0].password }}"
+      title: "{{ users[0].username }}"
     query_params:
       sysparm_input_display_value: true
   register: new_snow_eda_user_info
