@@ -2,7 +2,7 @@ activations:
   - name: Payment - HPA Rulebook Activation
     description: HPA Rulebook Activation for payment application
     project: "Ansible Gitops EDA Demo"
-    rulebook: "hpa_rulebook.yaml"
+    rulebook: "rulebooks/hpa_rulebook.yaml"
     decision_environment: "EDA Decision Environment"
     enabled: true
     state: present
@@ -14,7 +14,7 @@ activations:
   - name: Payment - PVC Rulebook Activation
     description: Alertmanager Rulebook Activationf or payment application
     project: "Ansible Gitops EDA Demo"
-    rulebook: "pvc_rulebook.yaml"
+    rulebook: "rulebooks/pvc_rulebook.yaml"
     decision_environment: "EDA Decision Environment"
     enabled: true
     state: present
