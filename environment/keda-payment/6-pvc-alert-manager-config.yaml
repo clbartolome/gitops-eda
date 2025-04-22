@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1beta1
 kind: AlertmanagerConfig
 metadata:
-  name: eda-routing
+  name: pvc-activation-job
   namespace: payment
   annotations:
     argocd.argoproj.io/sync-wave: "6"
@@ -15,4 +15,4 @@ spec:
   receivers:
     - name: 'webhook'
       webhookConfigs:
-      - url: http://eda-routing.aap.svc.cluster.local:5000/endpoint
+      - url: http://pvc-activation-job.aap.svc.cluster.local:5000/endpoint

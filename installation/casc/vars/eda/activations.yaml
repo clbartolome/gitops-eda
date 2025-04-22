@@ -11,6 +11,7 @@ activations:
     credential: 
       - "Red Hat Ansible Automation Platform Credential"
       - "ServiceNow Credential"
+    k8s_service_name: hpa-activation-job
   - name: Payment - PVC Rulebook Activation
     description: Alertmanager Rulebook Activationf or payment application
     project: "Ansible Gitops EDA Demo"
@@ -23,3 +24,4 @@ activations:
     credential: 
       - "Red Hat Ansible Automation Platform Credential"
       - "ServiceNow Credential"
+    k8s_service_name: pvc-activation-job
