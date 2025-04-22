@@ -1,7 +1,7 @@
 kind: KedaController
 apiVersion: keda.sh/v1alpha1
 metadata:
-  name: keda-payment
+  name: keda
   namespace: openshift-keda
   annotations:
     argocd.argoproj.io/sync-wave: "3"
