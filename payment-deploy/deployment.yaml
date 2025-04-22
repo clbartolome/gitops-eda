@@ -24,12 +24,12 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - name: payment-storage
+        - name: payment
           mountPath: /mnt
-        volumes: 
-        - name: payment-storage
-          persistentVolumeClaim:
-            claimName: payment 
+      volumes: 
+      - name: payment
+        persistentVolumeClaim:
+          claimName: payment 
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
