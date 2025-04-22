@@ -4,7 +4,7 @@ metadata:
   name: pvc-payment-alert
   namespace: payment
   labels:
-    role: alert-rules
+    role: pvc-alert-rules
     alert: pvc-payment-alert
   annotations:
     argocd.argoproj.io/sync-wave: "6"

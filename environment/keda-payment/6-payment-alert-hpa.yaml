@@ -4,7 +4,7 @@ metadata:
   name: hpa-payment-alert
   namespace: payment
   labels:
-    role: alert-rules
+    role: hpa-alert-rules
     alert: hpa-payment-alert
   annotations:
     argocd.argoproj.io/sync-wave: "6"
@@ -17,6 +17,8 @@ spec:
           for: 1s
           labels:
             severity: warning
+            snow_action: open_incident
+            manifest: payment-scaler.yaml
           annotations:
             summary: "KEDA Payment replicas at maximum capacity"
             description: "KEDA Payment application has reached 100% of its max replicas."

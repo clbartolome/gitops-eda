@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1beta1
 kind: AlertmanagerConfig
 metadata:
-  name: pvc-activation-job
+  name: payment-pvc-rulebook-activation
   namespace: payment
   annotations:
     argocd.argoproj.io/sync-wave: "6"

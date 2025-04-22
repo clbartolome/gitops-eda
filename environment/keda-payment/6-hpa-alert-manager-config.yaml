@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1beta1
 kind: AlertmanagerConfig
 metadata:
-  name: hpa-activation-job
+  name: payment-hpa-rulebook-activation
   namespace: payment
   annotations:
     argocd.argoproj.io/sync-wave: "6"
