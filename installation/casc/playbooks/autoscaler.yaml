@@ -1,5 +1,5 @@
 ---
-- name: Increment HPA Replicas 
+- name: Increment HPA Replicas
   hosts: localhost
   gather_facts: true
 

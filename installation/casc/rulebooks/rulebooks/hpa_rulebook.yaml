@@ -1,0 +1,39 @@
+- name: EDA Listener for Alertmanager and Servicenow - HPA
+  hosts: localhost
+  sources:
+    - name: Listen to Alertmanager
+      ansible.eda.alertmanager:
+        host: 0.0.0.0
+        port: 5000
+        data_host_path: ""
+
+    - name: Check new Incidents
+      cloin.eda.snow_records:
+        instance: "{{ instance }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        table: incident
+        interval: 1
+  rules:
+    - name: Get Alertmanager Alerts
+      condition: event.alert.labels.alertname == "HPAReplicasAtMaxCapacity" and event.alert.status == "firing"
+      action:
+        run_job_template:
+          name: "[JT] Open Servicenow Ticket"
+          organization: "Default"
+          job_args:
+            extra_vars:
+              title: "{{ event.alert.labels.alertname }}"
+              description: "{{ event.alert.annotations.description }}"
+              date: "{{ event.alert.startsAt }}"
+
+    - name: Trigger Remediation for HPAReplicasAtMaxCapacity
+      condition: event.short_description == "HPAReplicasAtMaxCapacity"
+      action:
+        run_workflow_template:
+          name: "[WF] Autoscale Pipeline"
+          organization: "Default"
+          job_args:
+            extra_vars:
+              incident_id: "{{ event.number }}"
+              description: "{{ event.description }}"

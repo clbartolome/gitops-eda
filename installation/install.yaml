@@ -52,9 +52,9 @@
       ansible.builtin.include_role:
         name: demos.utils.argocd
 
-    # - name: Configure AAP
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.aap_ocp
+    - name: Configure AAP
+      ansible.builtin.include_role:
+        name: demos.utils.aap_ocp
 
     - name: Create ArgoCD environment applications
       kubernetes.core.k8s:
@@ -80,10 +80,10 @@
                 selfHeal: true
 
 
-    # - name: Trigger Ansible Automation Platform Configuration as Code
-    #   ansible.builtin.include_tasks:
-    #     file: casc/deploy.yaml
-    #   vars:
-    #     sn_host: "{{ servicenow.sn_host }}"
-    #     sn_username: "{{ servicenow.sn_username }}"
-    #     sn_password: "{{ servicenow.sn_password }}"
+    - name: Trigger Ansible Automation Platform Configuration as Code
+      ansible.builtin.include_tasks:
+        file: casc/deploy.yaml
+      vars:
+        sn_host: "{{ servicenow.sn_host }}"
+        sn_username: "{{ servicenow.sn_username }}"
+        sn_password: "{{ servicenow.sn_password }}"
