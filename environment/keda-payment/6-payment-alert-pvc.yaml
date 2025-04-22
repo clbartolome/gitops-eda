@@ -10,16 +10,16 @@ metadata:
     argocd.argoproj.io/sync-wave: "6"
 spec:
   groups:
-    - name: pvc-usage-80
+    - name: pvc-alerts
       rules:
-      - alert: PVCUsageHigh
-        expr: (kubelet_volume_stats_used_bytes{persistentvolumeclaim="payment"} / kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="payment"}) * 100 > 80
-        for: 1m
-        labels:
-          severity: warning
-          snow_action: open_incident
-          manifest: pvc.yaml
-        annotations:
-          summary: "PVC {{ $labels.persistentvolumeclaim }} usage above 80%" #TODO Beautify these lines
-          description: |
-            PVC {{ $labels.persistentvolumeclaim }} usage is at {{ printf "%.2f" $value }}%. 
+        - alert: PVCUsageHigh
+          expr: (kubelet_volume_stats_used_bytes{persistentvolumeclaim="payment"} / kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="payment"}) * 100 > 80
+          for: 1s
+          labels:
+            severity: warning
+            snow_action: open_incident
+            manifest: pvc.yaml
+          annotations:
+            summary: "PVC {{ $labels.persistentvolumeclaim }} usage above 80%" #TODO Beautify these lines
+            description: |
+              PVC {{ $labels.persistentvolumeclaim }} usage is at {{ printf "%.2f" $value }}%. 
