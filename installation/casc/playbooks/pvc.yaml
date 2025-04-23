@@ -56,6 +56,10 @@
         regexp: '^(\s*)storage:.*'
         line: '\1storage: {{ new_size }}{{ unit }}'
 
+    - name: Create message for commit
+      ansible.builtin.set_fact:
+        message: "Extended storage to {{ new_size }}{{ unit }} by Ansible. Please, check incident {{ incident_id }}"
+
     - name: Commit configuration to repository
       ansible.builtin.include_role:
         name: demos.utils.git
@@ -65,5 +69,10 @@
         git_directory: "/tmp/{{ operation_time }}"
         git_email: "{{ lookup('env', 'GITEA_USERNAME') }}@redhat.com"
         git_user: "{{ lookup('env', 'GITEA_USERNAME') }}"
-        git_message: "Extended storage to {{ new_size }}{{ unit }}"
+        git_message: "{{ message }}"
       register: git_result
+
+    - name: Pass message to next job
+      ansible.builtin.set_stats:
+        data:
+          message: "{{ message }}"

@@ -44,6 +44,10 @@
         regexp: '^(\s*)maxReplicaCount:.*'
         line: '\1maxReplicaCount: {{ new_replicas }}'
 
+    - name: Create message for commit
+      ansible.builtin.set_fact:
+        message: "Extended replicas to {{ new_replicas }} by Ansible. Please, check incident {{ incident_id }}"
+
     - name: Commit configuration to repository
       ansible.builtin.include_role:
         name: demos.utils.git
@@ -51,9 +55,9 @@
         git_operation: push
         git_repository: "{{ repository }}"
         git_directory: "/tmp/{{ operation_time }}"
-        git_email: "{{ lookup('env', 'GITEA_EMAIL') }}"
+        git_email: "{{ lookup('env', 'GITEA_USERNAME') }}@redhat.com"
         git_user: "{{ lookup('env', 'GITEA_USERNAME') }}"
-        git_message: "Extended replicas to {{ new_replicas }} by Ansible. Please, check incident {{ incident_id }}"
+        git_message: "{{ message }}"
       register: git_result
 
     - name: Set variables for the next node
@@ -62,3 +66,8 @@
           new_replicas: "{{ new_replicas }}"
           repository: "{{ repository }}"
           manifest: "{{ manifest }}"
+
+    - name: Pass message to next job
+      ansible.builtin.set_stats:
+        data:
+          message: "{{ message }}"
