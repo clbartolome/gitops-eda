@@ -7,12 +7,12 @@ metadata:
     argocd.argoproj.io/sync-wave: "6"
 spec:
   route:
-    receiver: 'webhook'
+    receiver: webhook
     groupBy: ['alertname']
     groupInterval: 5s
     groupWait: 1s
     repeatInterval: 30s
   receivers:
-    - name: 'webhook'
+    - name: webhook
       webhookConfigs:
       - url: http://payment-pvc-rulebook-activation.aap.svc.cluster.local:5000/endpoint
