@@ -66,8 +66,8 @@
           new_replicas: "{{ new_replicas }}"
           repository: "{{ repository }}"
           manifest: "{{ manifest }}"
+          message: "{{ message }}"
 
     - name: Pass message to next job
       ansible.builtin.set_stats:
         data:
-          message: "{{ message }}"

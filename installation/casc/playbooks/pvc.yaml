@@ -76,3 +76,5 @@
       ansible.builtin.set_stats:
         data:
           message: "{{ message }}"
+          manifest: "{{ manifest }}"
+          repository: "{{ repository }}"
