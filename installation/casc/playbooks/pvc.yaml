@@ -58,7 +58,7 @@
 
     - name: Commit configuration to repository
       ansible.builtin.include_role:
-        name: git
+        name: demos.utils.git
       vars:
         git_operation: push
         git_repository: "{{ lookup('env', 'GITEA_REPO') }}"
