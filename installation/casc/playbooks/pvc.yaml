@@ -61,9 +61,9 @@
         name: demos.utils.git
       vars:
         git_operation: push
-        git_repository: "{{ lookup('env', 'GITEA_REPO') }}"
+        git_repository: "{{ repository }}"
         git_directory: "/tmp/{{ operation_time }}"
-        git_email: "{{ lookup('env', 'GITEA_EMAIL') }}"
+        git_email: "{{ lookup('env', 'GITEA_USERNAME') }}@redhat.com"
         git_user: "{{ lookup('env', 'GITEA_USERNAME') }}"
         git_message: "Extended storage to {{ new_size }}{{ unit }}"
       register: git_result
