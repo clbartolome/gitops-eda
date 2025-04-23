@@ -4,7 +4,7 @@ metadata:
   name: hpa-payment-alert
   namespace: payment
   labels:
-    role: hpa-alert-rules
+    role: alert-rules
     alert: hpa-payment-alert
   annotations:
     argocd.argoproj.io/sync-wave: "6"

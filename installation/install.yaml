@@ -12,17 +12,17 @@
     #   register: install_collections
     #   changed_when: install_collections.rc == 0
 
-    # - name: Create Demo namespaces
-    #   kubernetes.core.k8s:
-    #     state: present
-    #     definition:
-    #       apiVersion: project.openshift.io/v1
-    #       kind: Project
-    #       metadata:
-    #         name: "{{ namespace.name }}"
-    #   loop: "{{ namespaces }}"
-    #   loop_control:
-    #     loop_var: namespace
+    - name: Create Demo namespaces
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: project.openshift.io/v1
+          kind: Project
+          metadata:
+            name: "{{ namespace.name }}"
+      loop: "{{ namespaces }}"
+      loop_control:
+        loop_var: namespace
 
     - name: Setup Gitea
       ansible.builtin.include_role:
