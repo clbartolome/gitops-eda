@@ -10,6 +10,6 @@ data:
     enableUserWorkload: true
     alertmanager:
       enabled: true
-      enableUserAlertmanagerConfig: true
+      enableAlertmanagerConfig: true
     # alertmanagerMain:
     #    enableUserAlertmanagerConfig: true
