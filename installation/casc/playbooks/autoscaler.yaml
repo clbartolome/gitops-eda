@@ -2,7 +2,8 @@
 - name: Increment HPA Replicas
   hosts: localhost
   gather_facts: true
-
+  vars:
+    repository: "{{ lookup('env', 'GITEA_HOST') }}/gitea/payment-deploy.git"
   tasks:
 
     - name: Get current date
