@@ -4,40 +4,16 @@
   hosts: localhost
   tasks:
 
-    - name: Get Argocd host
-      kubernetes.core.k8s_info:
-        api_version: v1
-        kind: Route
-        name: openshift-gitops-server
-        namespace: openshift-gitops
-      register: gitea_host
-
-    - name: Get Argocd password
-      kubernetes.core.k8s_info:
-        api_version: v1
-        kind: Secret
-        name: openshift-gitops-cluster
-        namespace: openshift-gitops
-      register: gitea_password
-
-    - name: Set Argocd Password
-      ansible.builtin.set_fact:
-        argocd_pass: "{{ gitea_password.resources[0]['data']['admin.password'] | ansible.builtin.b64decode }}"
-
-    - name: Set Argocd Host
-      ansible.builtin.set_fact:
-        argocd_host: "{{ gitea_host.resources[0]['spec']['host'] }}"
-
     - name: Get Argocd Token
       ansible.builtin.uri:
-        url: "https://{{ argocd_host }}/api/v1/session"
+        url: "https://{{ lookup('ansible.builtin.env', 'ARGOCD_HOST') }}/api/v1/session"
         method: POST
         body_format: json
         headers:
           Content-Type: application/json
         body:
-          username: admin
-          password: "{{ argocd_pass }}"
+          username: "{{ lookup('ansible.builtin.env', 'ARGOCD_USERNAME') }}"
+          password: "{{ lookup('ansible.builtin.env', 'ARGOCD_PASSWORD') }}"
         status_code: 200
         force_basic_auth: true
         validate_certs: false
@@ -45,14 +21,14 @@
 
     - name: Synchronize APP
       ansible.builtin.uri:
-        url: "https://{{ argocd_host }}/api/v1/applications/app01/sync?project=default"
+        url: "https://{{ lookup('ansible.builtin.env', 'ARGOCD_HOST') }}/api/v1/applications/payment/sync?project=default"
         method: POST
         body_format: json
         headers:
           Content-Type: application/json
           Authorization: "Bearer {{ argocd_token.json.token }}"
         body:
-          username: admin
-          password: "{{ argocd_pass }}"
+          username: "{{ lookup('ansible.builtin.env', 'ARGOCD_USERNAME') }}"
+          password: "{{ lookup('ansible.builtin.env', 'ARGOCD_PASSWORD') }}"
         status_code: 200
         validate_certs: false
