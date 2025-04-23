@@ -2,7 +2,7 @@
 - name: Extend PVC
   hosts: localhost
   gather_facts: true
-  vars: 
+  vars:
     repository: "{{ lookup('env', 'GITEA_HOST') }}/gitea/payment-deploy.git"
   tasks:
 

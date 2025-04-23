@@ -9,7 +9,7 @@
         state: new
         caller: "admin"
         short_description: "{{ title }}"
-        description: "{{ description }}"
+        description: "{{ description }}. Check manifest: {{ manifest }}"
         impact: "low"
         urgency: "high"
         other:

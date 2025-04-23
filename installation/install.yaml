@@ -24,9 +24,9 @@
     #   loop_control:
     #     loop_var: namespace
 
-    # - name: Setup Gitea
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.gitea
+    - name: Setup Gitea
+      ansible.builtin.include_role:
+        name: demos.utils.gitea
 
     - name: Create thanos service account
       kubernetes.core.k8s:
@@ -80,10 +80,10 @@
                 selfHeal: true
 
 
-    # - name: Trigger Ansible Automation Platform Configuration as Code
-    #   ansible.builtin.include_tasks:
-    #     file: casc/deploy.yaml
-    #   vars:
-    #     sn_host: "{{ servicenow.sn_host }}"
-    #     sn_username: "{{ servicenow.sn_username }}"
-    #     sn_password: "{{ servicenow.sn_password }}"
+    - name: Trigger Ansible Automation Platform Configuration as Code
+      ansible.builtin.include_tasks:
+        file: casc/deploy.yaml
+      vars:
+        sn_host: "{{ servicenow.sn_host }}"
+        sn_username: "{{ servicenow.sn_username }}"
+        sn_password: "{{ servicenow.sn_password }}"
