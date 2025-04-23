@@ -6,7 +6,7 @@
 
     - name: Get Argocd Token
       ansible.builtin.uri:
-        url: "https://{{ lookup('ansible.builtin.env', 'ARGOCD_HOST') }}/api/v1/session"
+        url: "{{ lookup('ansible.builtin.env', 'ARGOCD_HOST') }}/api/v1/session"
         method: POST
         body_format: json
         headers:
@@ -21,7 +21,7 @@
 
     - name: Synchronize APP
       ansible.builtin.uri:
-        url: "https://{{ lookup('ansible.builtin.env', 'ARGOCD_HOST') }}/api/v1/applications/payment/sync?project=default"
+        url: "{{ lookup('ansible.builtin.env', 'ARGOCD_HOST') }}/api/v1/applications/payment/sync?project=default"
         method: POST
         body_format: json
         headers:
