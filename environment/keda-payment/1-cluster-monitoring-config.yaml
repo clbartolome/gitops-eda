@@ -8,5 +8,8 @@ metadata:
 data:
   config.yaml: |
     enableUserWorkload: true
-    alertmanagerMain:
-       enableUserAlertmanagerConfig: true
+    alertmanager:
+      enabled: true
+      enableUserAlertmanagerConfig: true
+    # alertmanagerMain:
+    #    enableUserAlertmanagerConfig: true
