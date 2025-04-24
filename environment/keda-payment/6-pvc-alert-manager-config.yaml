@@ -6,8 +6,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
-  global:
-    resolve_timeout: 5s
   route:
     receiver: webhook
     groupBy: ['alertname']
@@ -18,4 +16,3 @@ spec:
     - name: webhook
       webhookConfigs:
       - url: http://payment-pvc-rulebook-activation.aap.svc.cluster.local:5000/endpoint
-      send_resolved: true
