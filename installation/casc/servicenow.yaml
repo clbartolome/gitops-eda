@@ -1,7 +1,7 @@
 ---
 - name: Include vars
   ansible.builtin.include_vars:
-    file: vars/servicenow/users.yaml
+    file: vars/servicenow/snow_users.yaml
 
 - name: Check if Ansible EDA user already exists
   servicenow.itsm.api_info:
@@ -10,7 +10,7 @@
       username: "{{ sn_username }}"
       password: "{{ sn_password }}"
     resource: sys_user
-    sysparm_query: "user_name={{ users[0].username }}"
+    sysparm_query: "user_name={{ snow_users[0].username }}"
     columns:
       - sys_id
   register: snow_eda_user_info
@@ -24,12 +24,12 @@
     resource: sys_user
     action: post
     data:
-      first_name: "{{ users[0].username }}"
-      last_name: "{{ users[0].username }}"
-      name: "{{ users[0].username }}"
-      user_name: "{{ users[0].username }}"
-      user_password: "{{ users[0].password }}"
-      title: "{{ users[0].username }}"
+      first_name: "{{ snow_users[0].username }}"
+      last_name: "{{ snow_users[0].username }}"
+      name: "{{ snow_users[0].username }}"
+      user_name: "{{ snow_users[0].username }}"
+      user_password: "{{ snow_users[0].password }}"
+      title: "{{ snow_users[0].username }}"
     query_params:
       sysparm_input_display_value: true
   register: new_snow_eda_user_info
@@ -52,7 +52,7 @@
       username: "{{ sn_username }}"
       password: "{{ sn_password }}"
     resource: sys_user_role
-    sysparm_query: "name={{ users[0].role }}"
+    sysparm_query: "name={{ snow_users[0].role }}"
     columns:
       - sys_id
   register: snow_admin_role_info

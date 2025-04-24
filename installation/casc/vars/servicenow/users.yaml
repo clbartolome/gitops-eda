@@ -1,4 +1,0 @@
-users:
-  - username: "ansible"
-    password: "openshift"
-    role: "sn_incident_read"

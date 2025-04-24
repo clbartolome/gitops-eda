@@ -6,12 +6,14 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
+  global:
+    resolve_timeout: 5s
   route:
     receiver: webhook
     groupBy: ['alertname']
     groupInterval: 5s
     groupWait: 1s
-    repeatInterval: 30s
+    repeatInterval: 1h
   receivers:
     - name: webhook
       webhookConfigs:
