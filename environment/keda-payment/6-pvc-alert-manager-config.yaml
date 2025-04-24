@@ -18,3 +18,4 @@ spec:
     - name: webhook
       webhookConfigs:
       - url: http://payment-pvc-rulebook-activation.aap.svc.cluster.local:5000/endpoint
+      send_resolved: true
