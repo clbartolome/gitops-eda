@@ -7,10 +7,10 @@
 
   tasks:
 
-    # - name: Install collections
-    #   ansible.builtin.command: ansible-galaxy collection install -r collections/requirements.yaml --force
-    #   register: install_collections
-    #   changed_when: install_collections.rc == 0
+    - name: Install collections
+      ansible.builtin.command: ansible-galaxy collection install -r collections/requirements.yaml --force
+      register: install_collections
+      changed_when: install_collections.rc == 0
 
     - name: Create Demo namespaces
       kubernetes.core.k8s:

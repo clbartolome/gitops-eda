@@ -13,5 +13,5 @@
           state: 3
           incident_state: 3
           number: "{{ incident_id }}"
-          work_notes: "{{ message }}. Check the current values in the file {{ manifest }} stored in the repository {{ repository }}"
-          caller: "admin"
+          work_notes: "{{ message }}. Check the current values in the file {{ manifest[0] }} stored in the repository {{ repository }}"
+          caller: "ansible"

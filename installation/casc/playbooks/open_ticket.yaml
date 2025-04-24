@@ -7,7 +7,7 @@
     - name: Open ServiceNow incident
       servicenow.itsm.incident:
         state: new
-        caller: "admin"
+        caller: "ansible"
         short_description: "{{ title }}"
         description: "{{ description }}Check manifest: {{ manifest }}"
         impact: "high"
