@@ -1,0 +1,4 @@
+snow_user:
+  username: "ansible"
+  password: "R3dh4t1!"
+  role: "sn_incident_write"
