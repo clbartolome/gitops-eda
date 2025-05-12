@@ -38,9 +38,9 @@
           metadata:
             name: thanos
 
-    - name: Install required operators
-      ansible.builtin.include_role:
-        name: demos.utils.operator
+    # - name: Install required operators
+    #   ansible.builtin.include_role:
+    #     name: demos.utils.operator
 
     - name: Assign GitOps cluster-admin role to ArgoCD
       ansible.builtin.command: >

@@ -1,0 +1,51 @@
+
+---
+- name: Reset Payment Application
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: Delete finalizers in payment application
+      kubernetes.core.k8s:
+        state: patched
+        kind: Application
+        name: payment
+        definition:
+          metadata:
+            labels:
+              finalizers: null
+        wait: true
+
+    - name: Remove Payment application
+      kubernetes.core.k8s:
+        state: absent
+        api_version: argoproj.io/v1alpha1
+        kind: Application
+        namespace: openshift-gitops
+        name: payment
+        wait: true
+
+
+    - name: Create Payment applications
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: argoproj.io/v1alpha1
+          kind: Application
+          metadata:
+            name: payment
+            namespace: openshift-gitops
+          spec:
+            project: default
+            source:
+              repoURL: http://gitea.gitea.svc.cluster.local:3000/gitea/payment-deploy
+              targetRevision: master
+              path: .
+            destination:
+              server: https://kubernetes.default.svc
+              namespace: payment
+            syncPolicy:
+              automated:
+                prune: true
+                selfHeal: true
+        wait: true

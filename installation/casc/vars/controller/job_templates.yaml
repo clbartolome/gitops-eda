@@ -66,3 +66,16 @@ jobtemplates:
     allow_simultaneous: true
     execution_environment: "Default execution environment"
 
+  - name: "[JT] Reset Payment Application"
+    org: "Default"
+    inv: "Automation Controller Inventory"
+    project: "Ansible Gitops EDA Demo"
+    playbook: "reset.yaml"
+    creds:
+      - "Openshift Credential"
+    use_fact_cache: false
+    ask_limit_on_launch: false
+    ask_variables_on_launch: true
+    allow_simultaneous: true
+    execution_environment: "Default execution environment"
+
