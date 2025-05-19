@@ -23,7 +23,7 @@
           organization: "Default"
           job_args:
             extra_vars:
-              title: "{{ event.alert.labels.name  -  event.alert.annotations.summary }}"
+              title: "{{ event.alert.labels.alertname  -  event.alert.annotations.summary }}"
               description: "{{ event.alert.annotations.description }}"
               date: "{{ event.alert.startsAt }}"
               manifest: "{{ event.alert.labels.manifest }}"
