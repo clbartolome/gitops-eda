@@ -5,17 +5,6 @@
   gather_facts: false
   tasks:
 
-    - name: Delete finalizers in payment application
-      kubernetes.core.k8s:
-        state: patched
-        kind: Application
-        name: payment
-        definition:
-          metadata:
-            labels:
-              finalizers: null
-        wait: true
-
     - name: Remove Payment application
       kubernetes.core.k8s:
         state: absent
@@ -25,6 +14,38 @@
         name: payment
         wait: true
 
+    - name: Delete finalizers in payment application storage
+      kubernetes.core.k8s:
+        state: patched
+        kind: "{{ item }}"
+        name: payment
+        namespace: payment
+        merge_type: merge
+        definition:
+          metadata:
+            finalizers: null
+        wait: true
+      loop:
+        - PersistentVolumeClaim
+        - PersistentVolume
+
+    - name: Remove Payment Physical Volume Claim
+      kubernetes.core.k8s:
+        state: absent
+        api_version: v1
+        kind: PersistentVolumeClaim
+        namespace: payment
+        name: payment
+        wait: true
+
+    - name: Remove Payment Physical Volume
+      kubernetes.core.k8s:
+        state: absent
+        api_version: v1
+        kind: PersistentVolume
+        namespace: payment
+        name: payment
+        wait: true
 
     - name: Create Payment applications
       kubernetes.core.k8s:

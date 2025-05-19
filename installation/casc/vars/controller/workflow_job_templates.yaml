@@ -34,6 +34,15 @@ workflowjobtemplates:
     ask_variables_on_launch: true
     allow_simultaneous: false
     steps:
+      - identifier: Approve Production Changes
+        unified_job_template:
+          organization:
+            name: Default
+          name: "[JT] Extend Physical Volume"
+          type: workflow_approval
+        related:
+          success_nodes:
+            - identifier: Extend Physical Volume
       - identifier: "Extend Physical Volume"
         unified_job_template:
           organization:
