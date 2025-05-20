@@ -29,7 +29,7 @@
               manifest: "{{ event.alert.labels.manifest }}"
 
     - name: Trigger Remediation for HPAReplicasAtMaxCapacity
-      condition: event.short_description contains "HPAReplicasAtMaxCapacity"
+      condition: event.short_description is regex("^HPAReplicasAtMaxCapacity.*", ignorecase=false)
       action:
         run_workflow_template:
           name: "[WF] Autoscale Pipeline"
