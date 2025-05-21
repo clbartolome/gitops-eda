@@ -27,6 +27,7 @@
               description: "{{ event.alert.annotations.description }}"
               date: "{{ event.alert.startsAt }}"
               manifest: "{{ event.alert.labels.manifest }}"
+              alert: "{{ event.alert.labels.alertname }}"
 
     - name: Trigger Remediation for PVCUsageHigh
       condition: event.short_description is regex("^PVCUsageHigh.*", ignorecase=false)
