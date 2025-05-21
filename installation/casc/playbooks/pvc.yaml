@@ -42,7 +42,7 @@
 
     - name: Get Extra Space
       ansible.builtin.set_fact:
-        extra_space: "{{ (current_size | int) * 20 // 100 }}"
+        extra_space: "{{ (current_size | int) * 30 // 100 }}"
 
     - name: Get New Size
       ansible.builtin.set_fact:

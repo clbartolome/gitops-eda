@@ -10,7 +10,8 @@ spec:
     - name: pvc-alerts
       rules:
         - alert: PVCUsageHigh
-          expr: (kubelet_volume_stats_used_bytes{persistentvolumeclaim="payment"} / kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="payment"}) * 100 > 80
+          #expr: (kubelet_volume_stats_used_bytes{persistentvolumeclaim="payment"} / kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="payment"}) * 100 > 80
+          expr: (kubelet_volume_stats_used_bytes{namespace="payment"} / kubelet_volume_stats_capacity_bytes{namespace="payment"}) * 100 > 80
           for: 1s
           labels:
             severity: warning

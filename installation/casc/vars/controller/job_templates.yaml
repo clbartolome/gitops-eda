@@ -73,6 +73,7 @@ jobtemplates:
     playbook: "reset.yaml"
     creds:
       - "Openshift Credential"
+      - "Gitea Credential"
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true

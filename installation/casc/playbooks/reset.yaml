@@ -2,7 +2,9 @@
 ---
 - name: Reset Payment Application
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
+  vars:
+    repository: "{{ lookup('env', 'GITEA_HOST') }}/gitea/payment-deploy.git"
   tasks:
 
     - name: Remove Payment application
@@ -13,21 +15,7 @@
         namespace: openshift-gitops
         name: payment
         wait: true
-
-    - name: Delete finalizers in payment application storage
-      kubernetes.core.k8s:
-        state: patched
-        kind: "{{ item }}"
-        name: payment
-        namespace: payment
-        merge_type: merge
-        definition:
-          metadata:
-            finalizers: null
-        wait: true
-      loop:
-        - PersistentVolumeClaim
-        - PersistentVolume
+        force: true
 
     - name: Remove Payment Physical Volume Claim
       kubernetes.core.k8s:
@@ -36,7 +24,8 @@
         kind: PersistentVolumeClaim
         namespace: payment
         name: payment
-        wait: true
+        wait: false
+        force: true
 
     - name: Remove Payment Physical Volume
       kubernetes.core.k8s:
@@ -45,7 +34,59 @@
         kind: PersistentVolume
         namespace: payment
         name: payment
-        wait: true
+        wait: false
+        force: true
+
+    - name: Get current date
+      ansible.builtin.set_fact:
+        operation_time: "{{ ansible_date_time.epoch }}"
+
+    - name: Clone Configuration Repository
+      ansible.builtin.include_role:
+        name: demos.utils.git
+      vars:
+        git_repository: "{{ repository }}"
+        git_directory: "/tmp/{{ operation_time }}"
+        git_operation: clone
+      register: git_result
+
+    - name: Modify PVC
+      ansible.builtin.lineinfile:
+        state: present
+        backrefs: true
+        path: "/tmp/{{ operation_time }}/pvc.yaml"
+        regexp: '^(\s*)name:.*'
+        line: '\1name: payment-{{ operation_time }}'
+
+    - name: Replace volumeMounts name
+      ansible.builtin.replace:
+        path: "/tmp/{{ operation_time }}/deployment.yaml"
+        regexp: '^(\s*- name: )\S+(\s*\n\s*mountPath: /mnt)'
+        replace: '\1payment-{{ operation_time }}\2'
+
+    - name: Replace volumes name
+      ansible.builtin.replace:
+        path: "/tmp/{{ operation_time }}/deployment.yaml"
+        regexp: '^(\s*- name: )\S+(\s*\n\s*persistentVolumeClaim:)'
+        replace: '\1payment-{{ operation_time }}\2'
+
+    - name: Replace claimName
+      ansible.builtin.replace:
+        path: "/tmp/{{ operation_time }}/deployment.yaml"
+        regexp: '^(\s*claimName: )\S+'
+        replace: '\1payment-{{ operation_time }}'
+
+    - name: Commit configuration to repository
+      ansible.builtin.include_role:
+        name: demos.utils.git
+      vars:
+        git_operation: push
+        git_repository: "{{ repository }}"
+        git_directory: "/tmp/{{ operation_time }}"
+        git_email: "{{ lookup('env', 'GITEA_USERNAME') }}@redhat.com"
+        git_user: "{{ lookup('env', 'GITEA_USERNAME') }}"
+        git_message: "Reset Application"
+      register: git_result
 
     - name: Create Payment applications
       kubernetes.core.k8s:
