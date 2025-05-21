@@ -6,6 +6,7 @@ jobtemplates:
     playbook: "open_ticket.yaml"
     creds:
       - "ServiceNow Credential"
+      - "Openshift Credential"
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true
