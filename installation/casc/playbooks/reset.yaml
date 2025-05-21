@@ -111,3 +111,16 @@
                 prune: true
                 selfHeal: true
         wait: true
+
+    - name: Restore Alarms
+      kubernetes.core.k8s_exec:
+        namespace: openshift-monitoring
+        pod: alertmanager-main-0
+        command: "amtool silence expire $(amtool silence --alertmanager.url http://localhost:9093 | grep PVCUsageHigh | awk '{print $1}') --alertmanager.url http://localhost:9093"
+
+    - name: Restore Alarms
+      kubernetes.core.k8s_exec:
+        namespace: openshift-monitoring
+        pod: alertmanager-main-0
+        command: "amtool silence expire $(amtool silence --alertmanager.url http://localhost:9093 | grep HPAReplicasAtMaxCapacity | awk '{print $1}') --alertmanager.url http://localhost:9093"
+      
