@@ -1,5 +1,5 @@
-openshift_host: "{{ lookup('pipe', 'oc whoami --show-server' }}"
-openshift_token: "{{ lookup('pipe', 'oc whoami --show-token' }}"
+openshift_host: "{{ lookup('pipe', 'oc whoami --show-server') }}"
+openshift_token: "{{ lookup('pipe', 'oc whoami --show-token') }}"
 
 sn_host: "{{ lookup('ansible.builtin.env', 'SERVICENOW_HOST') }}"
 sn_username: "{{ lookup('ansible.builtin.env', 'SERVICENOW_USER') }}"

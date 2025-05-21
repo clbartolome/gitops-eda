@@ -62,8 +62,8 @@ jobtemplates:
       - "Openshift Credential"
     use_fact_cache: false
     ask_limit_on_launch: false
-    ask_variables_on_launch: true
-    allow_simultaneous: true
+    ask_variables_on_launch: false
+    allow_simultaneous: false
     execution_environment: "Default execution environment"
 
   - name: "[JT] Reset Payment Application"
@@ -76,7 +76,7 @@ jobtemplates:
       - "Gitea Credential"
     use_fact_cache: false
     ask_limit_on_launch: false
-    ask_variables_on_launch: true
-    allow_simultaneous: true
+    ask_variables_on_launch: false
+    allow_simultaneous: false
     execution_environment: "Default execution environment"
 

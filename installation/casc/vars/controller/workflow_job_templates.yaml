@@ -4,6 +4,15 @@ workflowjobtemplates:
     ask_variables_on_launch: true
     allow_simultaneous: false
     steps:
+      - identifier: Approve Production Changes
+        unified_job_template:
+          organization:
+            name: Default
+          name: "[JT] Autoscale Application"
+          type: workflow_approval
+        related:
+          success_nodes:
+            - identifier: Autoscale Application
       - identifier: "Autoscale Application"
         unified_job_template:
           organization:
