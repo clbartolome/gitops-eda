@@ -123,4 +123,3 @@
         namespace: openshift-monitoring
         pod: alertmanager-main-0
         command: "amtool silence expire $(amtool silence --alertmanager.url http://localhost:9093 | grep HPAReplicasAtMaxCapacity | awk '{print $1}') --alertmanager.url http://localhost:9093"
-      
