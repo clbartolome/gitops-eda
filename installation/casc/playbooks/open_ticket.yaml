@@ -12,8 +12,6 @@
         description: "{{ description }}Check manifest: {{ manifest }}"
         impact: "high"
         urgency: "high"
-        other:
-          cause: "{{ date | b64encode }}"
       register: incident
 
     - name: Set ServiceNow incident state

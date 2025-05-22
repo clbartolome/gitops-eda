@@ -15,3 +15,6 @@
           number: "{{ incident_id }}"
           work_notes: "{{ message }}. Check the current values in the file {{ manifest[0] }} stored in the repository {{ repository }}"
           caller: "ansible"
+          severity: 2
+          priority: 3
+          

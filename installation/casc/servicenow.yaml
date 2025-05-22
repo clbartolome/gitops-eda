@@ -26,9 +26,9 @@
     resource: sys_user
     action: post
     data:
-      first_name: "{{ snow_user.username }}"
-      last_name: "{{ snow_user.username }}"
-      name: "{{ snow_user.username }}"
+      first_name: "{{ snow_user.firstname }}"
+      last_name: "{{ snow_user.lastname }}"
+      name: "{{ snow_user.firstname }}"
       user_name: "{{ snow_user.username }}"
       user_password: "{{ snow_user.password }}"
       title: "{{ snow_user.username }}"
