@@ -112,14 +112,21 @@
                 selfHeal: true
         wait: true
 
-    - name: Restore Alarms
+    - name: Get Alarms Silences
       kubernetes.core.k8s_exec:
         namespace: openshift-monitoring
         pod: alertmanager-main-0
-        command: "amtool silence expire $(amtool silence --alertmanager.url http://localhost:9093 | grep PVCUsageHigh | awk '{print $1}') --alertmanager.url http://localhost:9093"
+        command: amtool silence --alertmanager.url http://localhost:9093 -o json
+      register: alarms_ids
+
+    - name: Get Silences IDs
+      ansible.builtin.set_fact:
+        ids: "{{ alarms_ids.stdout | from_json }}"
 
     - name: Restore Alarms
       kubernetes.core.k8s_exec:
         namespace: openshift-monitoring
         pod: alertmanager-main-0
-        command: "amtool silence expire $(amtool silence --alertmanager.url http://localhost:9093 | grep HPAReplicasAtMaxCapacity | awk '{print $1}') --alertmanager.url http://localhost:9093"
+        command: "amtool silence expire {{ item }} --alertmanager.url http://localhost:9093"
+      loop: "{{ ids | map(attribute='id') | list }}"
+
