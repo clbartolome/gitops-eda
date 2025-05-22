@@ -10,7 +10,7 @@ jobtemplates:
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true
-    allow_simultaneous: true
+    allow_simultaneous: false
     execution_environment: "Default execution environment"
 
   - name: "[JT] Update Servicenow Ticket"
@@ -24,7 +24,7 @@ jobtemplates:
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true
-    allow_simultaneous: true
+    allow_simultaneous: false
     execution_environment: "Default execution environment"
 
   - name: "[JT] Autoscale Application"
@@ -37,7 +37,7 @@ jobtemplates:
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true
-    allow_simultaneous: true
+    allow_simultaneous: false
     execution_environment: "Default execution environment"
 
   - name: "[JT] Extend Physical Volume"
@@ -50,7 +50,7 @@ jobtemplates:
     use_fact_cache: false
     ask_limit_on_launch: false
     ask_variables_on_launch: true
-    allow_simultaneous: true
+    allow_simultaneous: false
     execution_environment: "Default execution environment"
 
   - name: "[JT] Synchronize ArgoCD"
