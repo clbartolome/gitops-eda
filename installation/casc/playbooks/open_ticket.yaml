@@ -12,6 +12,8 @@
         description: "{{ description }}Check manifest: {{ manifest }}"
         impact: "high"
         urgency: "high"
+        other:
+          assigned_to: "ansible"
       register: incident
 
     - name: Set ServiceNow incident state
