@@ -60,6 +60,22 @@
         name: "{{ snow_user.username }}"
   register: upload_result
 
+- debug: msg="{{ upload_result }}"
+
+- name: Upload profile picture
+  servicenow.itsm.api:
+    instance:
+      host: "{{ sn_host }}"
+      username: "{{ sn_username }}"
+      password: "{{ sn_password }}"
+    action: patch
+    resource: sys_attachment
+    sys_id: "{{ item.sys_id }}"
+    data:
+      filename: "thumb_{{ item.sys_id }}"
+  register: upload_result
+  loop: "{{ upload_result.records }}"
+
 - name: Update profile picture
   servicenow.itsm.api:
     instance:
@@ -71,7 +87,6 @@
     sys_id: "{{ snow_eda_user_sys_id }}"
     data:
       photo: "{{ item.sys_id }}"
-      avatar: "{{ item.sys_id }}"
   loop: "{{ upload_result.records }}"
 
 - name: Get Admin role information
