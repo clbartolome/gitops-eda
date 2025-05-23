@@ -47,6 +47,33 @@
     - "{{ new_snow_eda_user_info }}"
   when: item.record is defined
 
+- name: Upload profile picture
+  servicenow.itsm.attachment_upload:
+    instance:
+      host: "{{ sn_host }}"
+      username: "{{ sn_username }}"
+      password: "{{ sn_password }}"
+    table_name: ZZ_YYsys_user
+    table_sys_id: "{{ snow_eda_user_sys_id }}"
+    attachments:
+      - path: "{{ snow_user.avatar }}"
+        name: "{{ snow_user.username }}"
+  register: upload_result
+
+- name: Update profile picture
+  servicenow.itsm.api:
+    instance:
+      host: "{{ lookup('env', 'SERVICENOW_HOST') }}"
+      username: "{{ lookup('env', 'SERVICENOW_USER') }}"
+      password: "{{ lookup('env', 'SERVICENOW_PASS') }}"
+    resource: sys_user
+    action: patch
+    sys_id: "{{ snow_eda_user_sys_id }}"
+    data:
+      photo: "{{ item.sys_id }}"
+      avatar: "{{ item.sys_id }}"
+  loop: "{{ upload_result.records }}"
+
 - name: Get Admin role information
   servicenow.itsm.api_info:
     instance:
@@ -59,14 +86,14 @@
       - sys_id
   register: snow_admin_role_info
 
-- name: Retrieve Admin role sys_id
+- name: Retrieve role sys_id
   ansible.builtin.set_fact:
     snow_admin_role_sys_id: "{{ snow_admin_role_info | json_query(query) }}"
   vars:
     query: "record[0].sys_id || record.sys_id"
   when: snow_admin_role_info.record is defined
 
-- name: Check if Ansible EDA user and Admin role are already linked
+- name: Check if Ansible EDA user and its role are already linked
   servicenow.itsm.api_info:
     instance:
       host: "{{ sn_host }}"
@@ -78,7 +105,7 @@
       - sys_id
   register: snow_eda_user_role_link_info
 
-- name: Link Ansible EDA user and Admin role
+- name: Link Ansible EDA user and its role
   servicenow.itsm.api:
     instance:
       host: "{{ sn_host }}"
@@ -91,3 +118,4 @@
       role: "{{ snow_admin_role_sys_id }}"
   register: new_user_role_link_sys_id
   when: snow_eda_user_role_link_info.record | length== 0
+

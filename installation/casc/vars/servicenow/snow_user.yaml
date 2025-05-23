@@ -4,3 +4,5 @@ snow_user:
   username: "ansible"
   password: "R3dh4t1!"
   role: "sn_incident_write"
+  avatar: "casc/files/ansible_logo.png"
+  
