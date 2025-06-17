@@ -1,0 +1,7 @@
+argo: oc get secret openshift-gitops-cluster -n openshift-gitops -o jsonpath='{.data.admin\.password}' | base64 -d
+
+aap: 2Fy2MVF8dtLpmqoUs4PmhpWmMkHlNzpa
+ocp: OK6oEnRJcdJJI9hz
+
+
+dd if=/dev/zero of=/mnt/file bs=$((1024*1024)) count=$((10*1024))

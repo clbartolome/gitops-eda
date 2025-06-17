@@ -28,25 +28,25 @@
     #   ansible.builtin.include_role:
     #     name: demos.utils.gitea
 
-    # - name: Create thanos service account
-    #   kubernetes.core.k8s:
-    #     state: present
-    #     namespace: payment
-    #     definition:
-    #       apiVersion: v1
-    #       kind: ServiceAccount
-    #       metadata:
-    #         name: thanos
+    - name: Create thanos service account
+      kubernetes.core.k8s:
+        state: present
+        namespace: payment
+        definition:
+          apiVersion: v1
+          kind: ServiceAccount
+          metadata:
+            name: thanos
 
-    # - name: Install required operators
-    #   ansible.builtin.include_role:
-    #     name: demos.utils.operator
+    # # - name: Install required operators
+    # #   ansible.builtin.include_role:
+    # #     name: demos.utils.operator
 
-    # - name: Assign GitOps cluster-admin role to ArgoCD
-    #   ansible.builtin.command: >
-    #     oc adm policy add-cluster-role-to-user cluster-admin
-    #     system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller
-    #     -n openshift-gitops
+    - name: Assign GitOps cluster-admin role to ArgoCD
+      ansible.builtin.command: >
+        oc adm policy add-cluster-role-to-user cluster-admin
+        system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller
+        -n openshift-gitops
 
     # - name: Configure ArgoCD
     #   ansible.builtin.include_role:
@@ -79,10 +79,10 @@
     #             prune: true
     #             selfHeal: true
 
-    - name: Trigger Ansible Automation Platform Configuration as Code
-      ansible.builtin.include_tasks:
-        file: casc/deploy.yaml
-      vars:
-        sn_host: "{{ servicenow.sn_host }}"
-        sn_username: "{{ servicenow.sn_username }}"
-        sn_password: "{{ servicenow.sn_password }}"
+    # - name: Trigger Ansible Automation Platform Configuration as Code
+    #   ansible.builtin.include_tasks:
+    #     file: casc/deploy.yaml
+    #   vars:
+    #     sn_host: "{{ servicenow.sn_host }}"
+    #     sn_username: "{{ servicenow.sn_username }}"
+    #     sn_password: "{{ servicenow.sn_password }}"

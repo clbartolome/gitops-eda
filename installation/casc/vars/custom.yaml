@@ -11,7 +11,7 @@ gitea_password: "openshift"
 
 rhn_username: "{{ lookup('community.general.bitwarden_secrets_manager', '21d8d4ff-9191-402c-813a-b26c012837f3').value }}"
 rhn_password: "{{ lookup('community.general.bitwarden_secrets_manager', '69b6ba85-0169-4c30-b524-b26c01285afd').value }}"
-rhn_pool_id: "{{ lookup('community.general.bitwarden_secrets_manager', '4d4c5bf5-a9eb-4832-8a45-b26c01291c55').value }}"
+rhn_subscription_id: "{{ lookup('community.general.bitwarden_secrets_manager', '4d4c5bf5-a9eb-4832-8a45-b26c01291c55').value }}"
 
 quay_username: "{{ lookup('community.general.bitwarden_secrets_manager', '82f4b092-50fb-4138-bed9-b26e00ce0298').value }}"
 quay_password: "{{ lookup('community.general.bitwarden_secrets_manager', '031b3102-55a9-4bf0-ba02-b26e00ce1a15').value }}"

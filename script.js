@@ -3,16 +3,16 @@ import { sleep } from 'k6';
 
   
 export const options = {
-  vus: 10,
-  duration: '60m',
+  vus: 10, // Number of simulatneus users
+  duration: '60m', // Test Duration
 };
 
 export default function () {
-  const url = 'http://payment-payment.apps.hetzner.calopezb.com/api/pay';
+  const url = 'http://payment-payment.apps.cluster-qkw84.qkw84.sandbox2020.opentlc.com/api/pay'; // Application Endpoint
   
   const payload = JSON.stringify({
-    amount: 100, 
-    currency: 'USD'
+    amount: 100, // Payment Quantity
+    currency: 'USD' // Currency
   });
 
   const params = {

@@ -6,6 +6,7 @@ Repository for fully automated installation and configuration of the necessary e
 > Tested versions: 
 > - OpenShift: 4.17
 > - OpenShift GitOps: 1.14.0
+> - Openshift Custom Metrics Autoscaler: 2.15.1-6
 
 ## Install
 
@@ -47,7 +48,5 @@ Currently, Keda is scaling based on a metric exposed by the payment application 
 The query we use `rate(http_requests_total{job="payment"}[1m])`, calculates the average rate of requests per second for each pod (or instance).
 
 KEDA will evaluate the result independently for each instance, and if at least one pod exceeds the threshold of 1 request per second, KEDA will increase the total number of pods.
-
-
 
 kube_horizontalpodautoscaler_status_current_replicas{horizontalpodautoscaler="keda-hpa-payment-scaler", namespace="payment"}/kube_horizontalpodautoscaler_spec_max_replicas{horizontalpodautoscaler="keda-hpa-payment-scaler", namespace="payment"}*100

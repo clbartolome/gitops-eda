@@ -76,18 +76,20 @@
   register: upload_result
   loop: "{{ upload_result.records }}"
 
+- debug: msg="{{ upload_result }}"
+
+
 - name: Update profile picture
   servicenow.itsm.api:
     instance:
-      host: "{{ lookup('env', 'SERVICENOW_HOST') }}"
-      username: "{{ lookup('env', 'SERVICENOW_USER') }}"
-      password: "{{ lookup('env', 'SERVICENOW_PASS') }}"
+      host: "{{ sn_host }}"
+      username: "{{ sn_username }}"
+      password: "{{ sn_password }}"
     resource: sys_user
     action: patch
     sys_id: "{{ snow_eda_user_sys_id }}"
     data:
-      photo: "{{ item.sys_id }}"
-  loop: "{{ upload_result.records }}"
+      photo: "{{ upload_result.results[0].item.sys_id }}"
 
 - name: Get Admin role information
   servicenow.itsm.api_info:
