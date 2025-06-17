@@ -26,10 +26,10 @@ spec:
         volumeMounts:
         - name: payment
           mountPath: /mnt
-      volumes: 
-      - name: payment
-        persistentVolumeClaim:
-          claimName: payment 
+      # volumes: 
+      # - name: payment
+      #   persistentVolumeClaim:
+      #     claimName: payment 
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

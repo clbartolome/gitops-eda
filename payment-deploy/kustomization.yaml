@@ -13,7 +13,7 @@ resources:
 - service.yaml
 - route.yaml
 - payment-scaler.yaml
-- pvc.yaml
+#- pvc.yaml
 
 images:
 - name: payment
