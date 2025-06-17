@@ -6,6 +6,10 @@
     repository: "{{ lookup('env', 'GITEA_HOST') }}/gitea/payment-deploy.git"
   tasks:
 
+    - name: Get manifest file
+      ansible.builtin.set_fact:
+        manifest: "{{ description | regex_search('manifest:\\s*(\\w+\\.([a-zA-Z]+))', '\\1') }}"
+
     - name: Get current date
       ansible.builtin.set_fact:
         operation_time: "{{ ansible_date_time.iso8601_basic_short }}"
@@ -21,7 +25,7 @@
 
     - name: Get Content of File
       ansible.builtin.slurp:
-        src: "/tmp/{{ operation_time }}/{{ manifest }}"
+        src: "/tmp/{{ operation_time }}/{{ manifest[0] }}"
       register: file
 
     - name: Get key
@@ -40,7 +44,7 @@
       ansible.builtin.lineinfile:
         state: present
         backrefs: true
-        path: "/tmp/{{ operation_time }}/{{ manifest }}"
+        path: "/tmp/{{ operation_time }}/{{ manifest[0] }}"
         regexp: '^(\s*)maxReplicaCount:.*'
         line: '\1maxReplicaCount: {{ new_replicas }}'
 
@@ -68,6 +72,4 @@
           manifest: "{{ manifest }}"
           message: "{{ message }}"
 
-    - name: Pass message to next job
-      ansible.builtin.set_stats:
-        data:
+
