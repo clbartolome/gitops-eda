@@ -71,7 +71,8 @@ The replicas should be modified in Gitea and changes should be applied by ArgoCD
 
 ## PVC Demo: Run remediation
 
-In the Openshift console, open the terminal of the Payment Application pod
+In the Openshift console, open the terminal of the Payment Application pod.
+
 Execute the following command to fill the disk
 
 ```
