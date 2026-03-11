@@ -23,13 +23,13 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
-        # volumeMounts:
-        # - name: payment
-        #   mountPath: /mnt
-      # volumes: 
-      # - name: payment
-      #   persistentVolumeClaim:
-      #     claimName: payment 
+        volumeMounts:
+        - name: payment
+          mountPath: /mnt
+      volumes: 
+      - name: payment
+        persistentVolumeClaim:
+          claimName: payment 
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

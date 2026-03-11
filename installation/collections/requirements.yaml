@@ -1,13 +1,19 @@
 collections:
+  - name: ansible.controller
+    version: 4.7.9
+  - name: ansible.platform
+    version: 2.6.20251106
+  - name: ansible.eda
+    version: 1.4.4
+  - name: servicenow.itsm
+    version: 2.13.2
+  - name: kubernetes.core
+    version: 6.3.0
+  - name: community.general
+    version: 12.4.0
   - name: https://github.com/zaskan/demos.utils.git
     type: git
     version: main
   - name: https://github.com/zaskan/ansible_automation_platform.casc.git
     type: git
     version: main
-  - name: ansible.controller
-  - name: ansible.platform
-  - name: ansible.eda
-  - name: servicenow.itsm
-  - name: kubernetes.core
-  - name: community.general

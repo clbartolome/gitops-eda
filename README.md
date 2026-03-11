@@ -22,6 +22,14 @@ export CLUSTER_DOMAIN=$(oc whoami --show-server | sed 's~https://api\.~~' | sed 
 ansible-playbook installation/install.yaml -e "ocp_host=$CLUSTER_DOMAIN"
 ```
 
+### Extra variables
+
+`-e "install_collections=true"` Install required Ansible collections
+
+`-e "install_operators=true"` Install required Openshift operators
+
+> **IMPORTANT NOTE** Change the storage class in pvc.yaml according to your storage classes.
+
 ## Uninstall
 
 - Open a terminal
@@ -32,7 +40,7 @@ CLUSTER_DOMAIN=$(oc whoami --show-server | sed 's~https://api\.~~' | sed 's~:.*~
 ansible-playbook installation/uninstall.yaml -e "ocp_host=$CLUSTER_DOMAIN"
 ```
 
-## Run load test
+## Keda Demo: Run load test
 
 In order to generate load and simulate/trigger this demo we've used K6. Review official documentation [here](https://grafana.com/docs/k6/latest/)
 
@@ -56,3 +64,19 @@ To force the keda scaling use the folloing command:
 ```
 k6 run script.js
 ```
+
+When the alert is triggered, show the servicenow incident and accept the Approvals in the AAP console.
+The replicas should be modified in Gitea and changes should be applied by ArgoCD
+
+
+## PVC Demo: Run remediation
+
+In the Openshift console, open the terminal of the Payment Application pod
+Execute the following command to fill the disk
+
+```
+dd if=/dev/zero of=/mnt/file bs=$((1024*1024)) count=$((10*1024))
+```
+
+When the alert is triggered, show the servicenow incident and accept the Approvals in the AAP console.
+The PVC size should be increased in Gitea and changes should be applied by ArgoCD

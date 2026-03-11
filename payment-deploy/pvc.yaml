@@ -1,12 +1,12 @@
-# kind: PersistentVolumeClaim
-# apiVersion: v1
-# metadata:
-#   name: payment
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 5Gi
-#   storageClassName: gp3-csi
-#   volumeMode: Filesystem
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: payment
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: odf-lvm-vg1
+  volumeMode: Filesystem
